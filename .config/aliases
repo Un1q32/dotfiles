@@ -6,4 +6,5 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias tree='tree -aC'
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
