@@ -1,12 +1,20 @@
-vim.opt.nu = true
+vim.opt.number = true
 vim.cmd "set noshowmode"
+vim.opt.cursorline = true
+vim.opt.autoread = true
+
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.shiftround = true
+vim.opt.expandtab = true
 
 vim.opt.clipboard = "unnamedplus"
+vim.opt.backspace = '2'
+vim.opt.laststatus = 2
 
-vim.api.nvim_set_keymap('n', 'd', '"_d', { noremap = true })
-vim.api.nvim_set_keymap('v', 'd', '"_d', { noremap = true })
-
-vim.opt.guifont = "CaskaydiaCove Nerd Font Mono"
-vim.g.neovide_refresh_rate = 144
 vim.o.termguicolors = true
 vim.cmd "colorscheme base16-classic-dark"

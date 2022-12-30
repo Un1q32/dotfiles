@@ -1,24 +1,8 @@
 local colors = {
   red = '#ca1243',
-  grey = '#a0a1a7',
-  black = '#383a42',
   white = '#f3f3f3',
   background = '#151515',
-  light_green = '#83a598',
   orange = '#fe8019',
-  green = '#8ec07c',
-}
-
-local theme = {
-  normal = {
-    a = { fg = colors.background, bg = colors.black },
-    b = { fg = colors.background, bg = colors.grey },
-    c = { fg = colors.black, bg = colors.background },
-    z = { fg = colors.background, bg = colors.black },
-  },
-  insert = { a = { fg = colors.black, bg = colors.light_green } },
-  visual = { a = { fg = colors.black, bg = colors.orange } },
-  replace = { a = { fg = colors.black, bg = colors.green } },
 }
 
 local empty = require('lualine.component'):extend()
@@ -77,21 +61,29 @@ require('lualine').setup {
   sections = process_sections {
     lualine_a = { 'mode' },
     lualine_b = {
+      { 'filename', file_status = false, path = 1 },
       'branch',
       'diff',
       {
         'diagnostics',
         source = { 'nvim' },
         sections = { 'error' },
-        diagnostics_color = { error = { bg = colors.red, fg = colors.white } },
       },
       {
         'diagnostics',
         source = { 'nvim' },
         sections = { 'warn' },
-        diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
       },
-      { 'filename', file_status = false, path = 1 },
+      {
+        'diagnostics',
+        source = { 'nvim' },
+        sections = { 'info' },
+      },
+      {
+        'diagnostics',
+        source = { 'nvim' },
+        sections = { 'hint' },
+      },
       { modified },
       {
         '%w',
