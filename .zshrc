@@ -12,9 +12,9 @@ ZSH="$DATA/zsh"
 [ -d "$CONF" ] || mkdir -p "$CONF"
 [ -d "$CACHE" ] || mkdir -p "$CACHE"
 [ -d "$ZSH" ] || mkdir -p "$ZSH"
-[ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
 [ -f "$CONF/env" ] && . "$CONF/env"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
+[ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
 
 HISTFILE="$CACHE/history"
 HISTSIZE=10000
