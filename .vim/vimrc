@@ -1,6 +1,6 @@
 call plug#begin()
-  Plug 'ap/vim-css-color'
-  Plug 'tpope/vim-commentary'
+    Plug 'ap/vim-css-color'
+    Plug 'tpope/vim-commentary'
 call plug#end()
 
 let mapleader = " "
