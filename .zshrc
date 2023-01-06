@@ -24,15 +24,15 @@ setopt appendhistory
 compinit -d "$CACHE/zcompdump"
 
 if [ "$EUID" -eq 0 ]; then
-  PROMPT=$'%{\e[01;31m%}%n@%M%{\e[01;34m%} %~ $%{\e[0m%} '
+    PROMPT=$'%{\e[01;31m%}%n@%M%{\e[01;34m%} %~ $%{\e[0m%} '
 else
-  PROMPT=$'%{\e[01;32m%}%n@%M%{\e[01;34m%} %~ $%{\e[0m%} '
+    PROMPT=$'%{\e[01;32m%}%n@%M%{\e[01;34m%} %~ $%{\e[0m%} '
 
-  clear
-  pfetch
+    clear
+    pfetch
 
-  for plug in "$ZSH"/plugins/*/*.plugin.zsh; do
-    . "$plug"
-  done
-  unset plug
+    for plug in "$ZSH"/plugins/*/*.plugin.zsh; do
+        . "$plug"
+    done
+    unset plug
 fi
