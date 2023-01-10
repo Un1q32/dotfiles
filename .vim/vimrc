@@ -19,6 +19,3 @@ set backspace=indent,eol,start
 set wildmenu
 
 nnoremap <silent> <leader>h :nohlsearch<CR>
-
-nnoremap d "_d
-vnoremap d "_d
