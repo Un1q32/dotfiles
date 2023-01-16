@@ -1,5 +1,5 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "bash" },
+  ensure_installed = { "bash", "lua" },
   sync_install = false,
   auto_install = true,
   highlight = {
