@@ -34,6 +34,8 @@ return require('packer').startup(function(use)
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
   }
+
+  use 'sakhnik/nvim-gdb'
   if packer_bootstrap then
     require('packer').sync()
   end
