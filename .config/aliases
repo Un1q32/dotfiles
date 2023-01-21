@@ -1,6 +1,6 @@
 alias cls='clear'
-alias ls='lsd --group-directories-first -A'
-alias l='lsd --group-directories-first -Alh'
+alias ls='lsd --icon=never --group-directories-first -A'
+alias l='lsd --icon=never --group-directories-first -Alh'
 alias update='topgrade'
 alias ..='cd ..'
 alias ...='cd ../..'
