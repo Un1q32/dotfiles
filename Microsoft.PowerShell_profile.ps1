@@ -1,7 +1,8 @@
-Set-Alias rm C:\Users\Joey\scoop\shims\rm.exe
-Set-Alias find C:\Users\Joey\scoop\apps\findutils\current\bin\find.exe
-Set-Alias convert C:\Users\Joey\scoop\apps\imagemagick\current\convert.exe
-Set-Alias ls C:\Users\Joey\bin\ls.ps1
+Set-Alias rm $HOME\scoop\shims\rm.exe
+Set-Alias find $HOME\scoop\shims\find.exe
+Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
+Set-Alias update topgrade
+Set-Alias lg lazygit
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
