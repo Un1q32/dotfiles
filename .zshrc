@@ -16,9 +16,9 @@ ZSH="$DATA/zsh"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
 [ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
 
-HISTFILE="$CACHE/history"
-HISTSIZE=10000
-SAVEHIST=10000
+export HISTFILE="$CACHE/history"
+export HISTSIZE=10000
+export SAVEHIST=10000
 setopt appendhistory
 
 compinit -d "$CACHE/zcompdump"
