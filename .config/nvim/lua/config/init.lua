@@ -1,0 +1,7 @@
+require("config.lualine")
+require("config.nvim-tree")
+require("config.treesitter")
+require("config.bufferline")
+require("config.lspconfig")
+require("config.debug")
+-- require("config.completions")

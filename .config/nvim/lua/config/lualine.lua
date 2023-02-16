@@ -1,3 +1,5 @@
+vim.opt.laststatus = 3
+
 local colors = {
   red = '#ca1243',
   white = '#f3f3f3',
