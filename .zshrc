@@ -31,8 +31,10 @@ else
     clear
     pfetch
 
-    for plug in "$ZSH"/plugins/*/*.plugin.zsh; do
-        . "$plug"
-    done
+    if [ -d "$ZSH/plugins" ]; then
+        for plug in "$ZSH"/plugins/*/*.plugin.zsh; do
+            . "$plug"
+        done
+    fi
     unset plug
 fi
