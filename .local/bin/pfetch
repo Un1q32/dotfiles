@@ -316,7 +316,7 @@ get_os() {
             fi
         ;;
 
-        (CYGWIN*|MSYS*|MINGW*)
+        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
             # Grab everything after the first instance of
             # white-space in the command output of 'wmic'.
             #
@@ -439,7 +439,7 @@ get_kernel() {
             return
         ;;
 	# Use wmic to get the OS version
-        (CYGWIN*|MSYS*|MINGW*)
+        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
 	    kernel=$(wmic os get Version)
 	    kernel=$(echo $kernel | awk '{print $3}')
     esac
@@ -477,7 +477,7 @@ get_host() {
         (*BSD* | Minix)
             host=$(sysctl -n hw.vendor hw.product)
         ;;
-		(CYGWIN*|MSYS*|MINGW*)
+		(CYGWIN*|MSYS*|MINGW*|Windows_NT)
 			host=$(wmic computersystem get model \
 			| tail -n +2 \
 			| sed 's/.*=//g'
@@ -533,7 +533,7 @@ get_uptime() {
     # converting that data into days, hours and minutes using simple
     # math.
     case $os in
-        (Linux*|Minix*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|NetBSD*)
+        (Linux*|Minix*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|Windows_NT|NetBSD*)
             if ! [ -r /proc/uptime ] || [ "$PF_FORCEALTUPTIME" -eq 1 ]; then
                 boot=$(date -d"$(uptime -s)" +%s)
                 now=$(date +%s)
@@ -625,7 +625,7 @@ get_pkgs() {
     # line, giving us the total package count of whatever package
     # managers are installed.
     case $os in
-        (CYGWIN*|MSYS*|MINGW*)
+        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
             has scoop      && sub=$((sub + 4))
             has winget     && sub=$((sub + 4))
         ;;
@@ -669,7 +669,7 @@ fi
                 }
             ;;
 
-            (CYGWIN*|MSYS*|MINGW*)
+            (CYGWIN*|MSYS*|MINGW*|Windows_NT)
                 # Commands which print packages one per line.
                 has scoop      && scoop list
                 has winget     && winget list
@@ -772,7 +772,7 @@ get_memory() {
         # Used memory is calculated using the following "formula":
         # MemUsed = MemTotal + Shmem - MemFree - Buffers - Cached - SReclaimable
         # Source: https://github.com/KittyKatt/screenFetch/issues/386
-        (Linux*|CYGWIN*|MSYS*|MINGW*)
+        (Linux*|CYGWIN*|MSYS*|MINGW*|Windows_NT)
             # Parse the '/proc/meminfo' file splitting on ':' and 'k'.
             # The format of the file is 'key:   000kB' and an additional
             # split is used on 'k' to filter out 'kB'.
@@ -1078,7 +1078,7 @@ get_disk() {
 		#
 		# probably a better way to do this, but a simple fixs
 		case $os in
-			CYGWIN*|MSYS*|MINGW*)
+			CYGWIN*|MSYS*|MINGW*|Windows_NT)
 				windisk=$(df -h | tail -n +2 | awk 'NR==1{print $4" / "$3,"("$6")"}')
 				log disk "$windisk" >&6
 			;;
@@ -1092,7 +1092,7 @@ get_disk() {
 
 get_wm() {
     case $os in
-        (Darwin*|CYGWIN*|MSYS*|MINGW*)
+        (Darwin*|CYGWIN*|MSYS*|MINGW*|Windows_NT)
             # Don't display window manager on macOS and Windows.
         ;;
 
@@ -1424,7 +1424,7 @@ get_ascii() {
 			EOF
         ;;
 		
-		CYGWIN*|MSYS*|MINGW*)
+		CYGWIN*|MSYS*|MINGW*|Windows_NT)
 		    read_ascii 4 <<-EOF
 			${c4}######  ######
 				######  ######
