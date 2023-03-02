@@ -2,11 +2,6 @@ require("mason").setup()
 
 require("lspconfig").bashls.setup({})
 
-vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInformation", { text = " ", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticSignHint" })
-
 local _border = "rounded"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
