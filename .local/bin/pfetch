@@ -2,23 +2,6 @@
 #
 # pfetch - Simple POSIX sh fetch script.
 
-# If ${XDG_CONFIG_HOME} is set then look for the config file there,
-# otherwise look for it in ~/.config
-if [ -n "$XDG_CONFIG_HOME" ]; then
-    configpath="$XDG_CONFIG_HOME"
-else
-    configpath="$HOME/.config"
-fi
-
-# Source the config file if it exists, otherwise create one.
-# shellcheck disable=SC1091
-if [ -f "$configpath"/pfetch.conf ]; then
-    . "$configpath"/pfetch.conf
-else
-    mkdir -p "$configpath"
-    printf "# pfetch configuration file\n" > "$configpath"/pfetch.conf
-fi
-
 # Wrapper around all escape sequences used by pfetch to allow for
 # greater control over which sequences are used (if any at all).
 esc() {
@@ -2029,10 +2012,11 @@ get_ascii() {
     } >&6
 }
 
+# shellcheck disable=1091
 main() {
     case $* in
         -v)
-            printf '%s 0.7.0\n' "${0##*/}"
+            printf '%s 1.0 (OldWorldOrdr fork)\n' "${0##*/}"
             return 0
         ;;
 
@@ -2048,11 +2032,9 @@ main() {
         ;;
 
         *)
-            cat <<EOF
-${0##*/}     show system information
-${0##*/} -u  update ${0##*/} to the latest version
-${0##*/} -v  show version information
-EOF
+            printf "%s     show system information
+%s -u  update %s to the latest version
+%s -v  show version information\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
             return 0
         ;;
     esac
@@ -2064,10 +2046,19 @@ EOF
     # Store raw escape sequence character for later reuse.
     esc_c=$(printf '\033')
 
-    # Allow the user to execute their own script and modify or
-    # extend pfetch's behavior.
-    # shellcheck source=/dev/null
-    ! [ -f "$PF_SOURCE" ] || . "$PF_SOURCE"
+    # If $XDG_CONFIG_HOME is set then look for the config file there,
+    # otherwise look for it in ~/.config
+    if [ -f "$PF_SOURCE" ]; then
+        . "$PF_SOURCE"
+    fi
+    if [ -f "$XDG_CONFIG_HOME/pfetch.conf" ]; then
+        . "$XDG_CONFIG_HOME/pfetch.conf"
+    elif [ -f "$HOME/.config/pfetch.conf" ]; then
+        . "$HOME/.config/pfetch.conf"
+    elif ! [ -e "$HOME/.config/pfetch.conf" ]; then # Create the config file if it doesn't exist.
+        mkdir -p "$HOME/.config"
+        printf "# pfetch configuration file\n" > "$HOME/.config/pfetch.conf"
+    fi
 
     # Ensure that the 'TMPDIR' is writable as heredocs use it and
     # fail without the write permission. This was found to be the
