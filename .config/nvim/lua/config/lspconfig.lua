@@ -1,20 +1,11 @@
 require("mason").setup()
 
+require("lspconfig").bashls.setup({})
+
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInformation", { text = " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticSignHint" })
-
-local on_attach = function(_, _)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require("lspconfig").bashls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
 
 local _border = "rounded"
 
