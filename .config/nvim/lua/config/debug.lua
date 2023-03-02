@@ -15,5 +15,5 @@ let g:nvimgdb_config_override = {
     \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
     \ }
 
-command! -nargs=* Bashdb GdbStartBashDB bashdb %p <f-args>
+command! -nargs=* Bashdb GdbStartBashDB bashdb %p <args>
 ]], false)
