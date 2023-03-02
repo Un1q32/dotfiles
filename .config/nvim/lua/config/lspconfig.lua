@@ -1,7 +1,4 @@
 require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = { "bashls" },
-})
 
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
