@@ -1,5 +1,5 @@
 vim.opt.number = true
-vim.cmd "set noshowmode"
+vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.autoread = true
 
@@ -17,4 +17,5 @@ vim.opt.backspace = '2'
 vim.opt.laststatus = 2
 
 vim.o.termguicolors = true
-vim.cmd "colorscheme base16-classic-dark"
+
+vim.cmd.colorscheme("base16-classic-dark")
