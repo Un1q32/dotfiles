@@ -17,3 +17,5 @@ function prompt {
     Write-Host "$(Get-Location) `$" -ForegroundColor Blue -NoNewLine
     return ' '
 }
+
+$env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
