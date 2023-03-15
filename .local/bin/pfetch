@@ -180,10 +180,10 @@ get_title() {
     # If the hostname is STILL not found, set it as "unknown"
     [ -n "$hostname" ] || hostname="unknown"
 
-    # Add escape sequences for coloring to user and host name unless $PF_TITLECOLOR=0. As we embed
+    # Add escape sequences for coloring to user and host name unless $PF_COL3=COL1. As we embed
     # them directly in the arguments passed to log(), we cannot use esc_p().
 
-if ! [ "$PF_TITLECOLOR" -eq "0" ]; then
+if ! [ "$PF_COL3" = "COL1" ]; then
     esc SGR 1
     user=$e$user
     esc SGR "3${PF_COL3:-1}"
