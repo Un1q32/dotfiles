@@ -1,9 +1,29 @@
+# essentials
 alias cls='clear'
-alias ls='lsd --icon=never --group-directories-first -A'
-alias l='lsd --icon=never --group-directories-first -Alh'
-alias update='topgrade'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tree='tree -aC'
+
+# ls
+alias ls='lsd --icon=never --group-directories-first -A'
+# alias ls='ls --color=auto --group-directories-first -A'
+# alias ls='ls -A'
+alias l='ls -lh'
+
+# only sometimes
+# alias lg='lazygit'
+# alias cat='bat --theme=ansi -P'
+
+# ssh
+alias server='ssh joey@104.1.155.191 -p 2222'
+alias pcserver='ssh joey@192.168.1.233'
+alias deck='ssh deck@192.168.50.187 -p 2222'
+
+# add to path
+# alias iosdev='export PATH="/home/joey/iosdev/toolchain/bin:$PATH"'
+# alias iosdev64='export PATH="/home/joey/iosdev/toolchain64/bin:$PATH"'
+
+# distro specific
+# alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
