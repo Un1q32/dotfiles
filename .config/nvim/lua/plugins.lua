@@ -20,9 +20,12 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-tree.lua'
     use 'nvim-tree/nvim-web-devicons'
     use 'nvim-lualine/lualine.nvim'
-    use 'nvim-treesitter/nvim-treesitter'
     use 'tpope/vim-commentary'
     use 'mfussenegger/nvim-lint'
+    use 'sheerun/vim-polyglot'
+    if vim.fn.has('win32') == 0 then
+        use 'nvim-treesitter/nvim-treesitter'
+    end
 
     -- use 'hrsh7th/nvim-cmp'
     -- use 'hrsh7th/cmp-nvim-lsp'
