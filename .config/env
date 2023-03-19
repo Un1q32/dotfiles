@@ -1,1 +1,2 @@
+# vim:filetype=sh
 export PF_SOURCE="$CONF/pfetch.conf"
