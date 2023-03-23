@@ -13,7 +13,7 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     use 'github/copilot.vim'
-    use 'ap/vim-css-color'
+    use 'norcalli/nvim-colorizer.lua'
     use 'akinsho/bufferline.nvim'
     use 'wbthomason/packer.nvim'
     use 'OldWorldOrdr/nvim-base16'

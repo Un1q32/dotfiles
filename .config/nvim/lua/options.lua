@@ -12,7 +12,7 @@ vim.opt.autoindent = true
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 vim.opt.backspace = '2'
 vim.opt.laststatus = 2
 

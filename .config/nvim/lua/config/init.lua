@@ -3,6 +3,7 @@ require("config.nvim-tree")
 require("config.bufferline")
 require("config.debug")
 require("config.lint")
+require("config.color")
 if vim.fn.has('win32') == 0 then
     require("config.treesitter")
 end

@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-base16",
     url = "https://github.com/OldWorldOrdr/nvim-base16"
   },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
+  },
   ["nvim-gdb"] = {
     loaded = true,
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-gdb",
@@ -129,10 +134,10 @@ _G.packer_plugins = {
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
   },
-  ["vim-css-color"] = {
+  ["vim-polyglot"] = {
     loaded = true,
-    path = "/home/joey/.local/share/nvim/site/pack/packer/start/vim-css-color",
-    url = "https://github.com/ap/vim-css-color"
+    path = "/home/joey/.local/share/nvim/site/pack/packer/start/vim-polyglot",
+    url = "https://github.com/sheerun/vim-polyglot"
   }
 }
 
