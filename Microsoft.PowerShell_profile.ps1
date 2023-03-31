@@ -29,4 +29,4 @@ function prompt {
 $env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
 $env:PF_SOURCE = "C:\msys64\home\Joey\.config\pfetch.conf"
 
-pfetch
+pfetch
