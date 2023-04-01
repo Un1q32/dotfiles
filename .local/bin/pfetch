@@ -610,7 +610,6 @@ get_pkgs() {
     case $os in
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
             has scoop      && sub=$((sub + 4))
-            has winget     && sub=$((sub + 4))
         ;;
 
         (IRIX)
@@ -622,7 +621,7 @@ if [ "$PF_ENABLEPIP" -eq 1 ]; then
     has pip && sub=$((sub - $(pip list | wc -l) + 3))
 fi
 
-    packages=$(($(
+    packages=$(
         case $os in
             (Linux*)
                 # Commands which print packages one per line.
@@ -726,7 +725,9 @@ fi
                 done < /usr/Ports/packages.db
             ;;
         esac | wc -l
-    ) - sub))
+    )
+
+    packages=$((packages - sub))
 
     # 'wc -l' can have leading and/or trailing whitespace
     # depending on the implementation, so strip them.
@@ -2012,7 +2013,7 @@ get_ascii() {
     } >&6
 }
 
-# shellcheck disable=1091
+# shellcheck disable=1090,1091
 main() {
     case $* in
         -v)
