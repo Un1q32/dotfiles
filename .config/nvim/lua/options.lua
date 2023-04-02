@@ -20,4 +20,4 @@ vim.opt.backspace = '2'
 
 vim.o.termguicolors = true
 
-vim.cmd.colorscheme("base16-google-dark")
+vim.cmd.colorscheme("base16-classic-dark")
