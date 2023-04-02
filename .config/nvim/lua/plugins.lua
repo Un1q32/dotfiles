@@ -19,7 +19,6 @@ return require('packer').startup(function(use)
     use 'OldWorldOrdr/nvim-base16'
     use 'nvim-tree/nvim-tree.lua'
     use 'nvim-tree/nvim-web-devicons'
-    use 'nvim-lualine/lualine.nvim'
     use 'tpope/vim-commentary'
     use 'mfussenegger/nvim-lint'
     use 'sheerun/vim-polyglot'

@@ -1,4 +1,3 @@
-require("config.lualine")
 require("config.nvim-tree")
 require("config.bufferline")
 require("config.debug")

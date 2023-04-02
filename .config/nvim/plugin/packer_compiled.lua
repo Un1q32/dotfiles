@@ -84,11 +84,6 @@ _G.packer_plugins = {
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
-  ["lualine.nvim"] = {
-    loaded = true,
-    path = "/home/joey/.local/share/nvim/site/pack/packer/start/lualine.nvim",
-    url = "https://github.com/nvim-lualine/lualine.nvim"
-  },
   ["nvim-base16"] = {
     loaded = true,
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-base16",
