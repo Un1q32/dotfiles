@@ -18,6 +18,6 @@ vim.opt.expandtab = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.backspace = '2'
 
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 
 vim.cmd.colorscheme("base16-classic-dark")

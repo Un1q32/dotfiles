@@ -22,6 +22,9 @@ return require('packer').startup(function(use)
     use 'tpope/vim-commentary'
     use 'mfussenegger/nvim-lint'
     use 'sheerun/vim-polyglot'
+    use 'folke/noice.nvim'
+    use 'rcarriga/nvim-notify'
+    use 'MunifTanjim/nui.nvim'
     if vim.fn.has('win32') == 0 then
         use 'nvim-treesitter/nvim-treesitter'
     end
