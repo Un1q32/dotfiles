@@ -25,9 +25,7 @@ return require('packer').startup(function(use)
     use 'folke/noice.nvim'
     use 'rcarriga/nvim-notify'
     use 'MunifTanjim/nui.nvim'
-    if vim.fn.has('win32') == 0 then
-        use 'nvim-treesitter/nvim-treesitter'
-    end
+    use 'nvim-treesitter/nvim-treesitter'
 
     -- use 'hrsh7th/nvim-cmp'
     -- use 'hrsh7th/cmp-nvim-lsp'
