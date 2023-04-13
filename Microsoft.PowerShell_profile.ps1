@@ -14,7 +14,6 @@ function ..... { Set-Location "../../../.." }
 function real_ls { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -A $args }
 function l { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -Alh $args }
 function real_cat { bat --theme=ansi -P $args }
-function ln { sudo ln $args }
 
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
