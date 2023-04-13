@@ -34,6 +34,6 @@ function prompt {
 }
 
 $env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
-$env:PF_SOURCE = "C:\msys64\home\Joey\.config\pfetch.conf"
+$env:PF_SOURCE = "$HOME\.config\pfetch.conf"
 
 pfetch
