@@ -1,12 +1,17 @@
 Set-Alias rm $HOME\scoop\shims\rm.exe
 Set-Alias find $HOME\scoop\shims\find.exe
 Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
-Set-Alias update topgrade
 Set-Alias lg lazygit
+Set-Alias ls real_ls
+Set-Alias cat real_cat
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
 function ..... { Set-Location "../../../.." }
+function real_ls { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -A $args }
+function l { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -Alh $args }
+function real_cat { bat --theme=ansi -P $args }
+function ln { sudo ln $args }
 
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
@@ -29,4 +34,4 @@ function prompt {
 $env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
 $env:PF_SOURCE = "C:\msys64\home\Joey\.config\pfetch.conf"
 
-pfetch
+pfetch
