@@ -1,3 +1,6 @@
+Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
+Enter-VsDevShell de590238 -DevCmdArguments '-arch=x64' > NUL
+
 Set-Alias rm $HOME\scoop\shims\rm.exe
 Set-Alias find $HOME\scoop\shims\find.exe
 Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
