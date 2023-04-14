@@ -7,12 +7,14 @@ Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
 Set-Alias lg lazygit
 Set-Alias ls real_ls
 Set-Alias cat real_cat
+Set-Alias strip llvm-strip
+Set-Alias ar llvm-ar
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
 function ..... { Set-Location "../../../.." }
-function real_ls { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -A $args }
-function l { C:\Users\Joey\scoop\shims\ls.exe --color --group-directories-first -Alh $args }
+function real_ls { lsd --icon=never --group-directories-first -A $args }
+function l { lsd --icon=never --group-directories-first -Alh $args }
 function real_cat { bat --theme=ansi -P $args }
 
 Import-Module PSReadLine
