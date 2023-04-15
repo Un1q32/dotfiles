@@ -13,8 +13,8 @@ function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
 function ..... { Set-Location "../../../.." }
-function real_ls { lsd --icon=never --group-directories-first -A $args }
-function l { lsd --icon=never --group-directories-first -Alh $args }
+function real_ls { lsd --icon=never --group-directories-first -A -I NTUSER.DAT $args }
+function l { lsd --icon=never --group-directories-first -Alh -I NTUSER.DAT $args }
 function real_cat { bat --theme=ansi -P $args }
 
 Import-Module PSReadLine
