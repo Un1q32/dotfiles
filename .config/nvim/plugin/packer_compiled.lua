@@ -84,6 +84,16 @@ _G.packer_plugins = {
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
+  ["noice.nvim"] = {
+    loaded = true,
+    path = "/home/joey/.local/share/nvim/site/pack/packer/start/noice.nvim",
+    url = "https://github.com/folke/noice.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/joey/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
+  },
   ["nvim-base16"] = {
     loaded = true,
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-base16",
@@ -103,6 +113,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-lint",
     url = "https://github.com/mfussenegger/nvim-lint"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/home/joey/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
