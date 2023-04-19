@@ -5,7 +5,7 @@ require('lint').linters_by_ft = {
 
 vim.fn.setenv('SHELLCHECK_OPTS', '--exclude SC2148')
 
-vim.api.nvim_create_autocmd({ "InsertLeave", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold", "CursorHoldI", "InsertLeave", "WinEnter" }, {
     callback = function()
         require('lint').try_lint()
     end,
