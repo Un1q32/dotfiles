@@ -1,6 +1,6 @@
 require('lint').linters_by_ft = {
     sh = {'shellcheck'},
-    c = {'cppcheck'},
+    c = {'clangtidy'},
 }
 
 vim.fn.setenv('SHELLCHECK_OPTS', '--exclude SC2148')
