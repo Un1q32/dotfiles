@@ -617,9 +617,9 @@ get_pkgs() {
         ;;
     esac
 
-if [ "$PF_ENABLEPIP" -eq 1 ]; then
-    has pip && sub=$((sub - $(pip list | wc -l) + 3))
-fi
+    if [ "$PF_ENABLEPIP" -eq 1 ]; then
+        has pip && sub=$((sub - $(pip list | wc -l) + 3))
+    fi
 
     packages=$(
         case $os in
