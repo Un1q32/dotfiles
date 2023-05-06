@@ -23,7 +23,6 @@ alias pcserver='ssh -t joey@104.1.155.191 -p 2222 "ssh joey@192.168.1.233"'
 alias deck='ssh deck@192.168.50.187 -p 2222'
 
 # add to path
-# alias iosdev='export PATH="/home/joey/iosdev/toolchain/bin:$PATH"'
 # alias iosdev64='export PATH="/home/joey/iosdev/toolchain64/bin:$PATH"'
 
 # distro specific

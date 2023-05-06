@@ -1,13 +1,17 @@
-require('lint').linters_by_ft = {
+lint = require('lint')
+
+lint.linters_by_ft = {
     sh = {'shellcheck'},
     c = {'clangtidy'},
 }
+
+lint.linters.clangtidy.ignore_exitcode = true
 
 vim.fn.setenv('SHELLCHECK_OPTS', '--exclude SC2148')
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold", "CursorHoldI", "InsertLeave", "WinEnter" }, {
     callback = function()
-        require('lint').try_lint()
+        lint.try_lint()
     end,
 })
 
