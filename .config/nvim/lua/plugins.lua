@@ -25,6 +25,7 @@ local plugins = {
     "rcarriga/nvim-notify",
     "MunifTanjim/nui.nvim",
     "nvim-treesitter/nvim-treesitter",
+    "sakhnik/nvim-gdb",
 
     -- "hrsh7th/nvim-cmp",
     -- "hrsh7th/cmp-nvim-lsp",
