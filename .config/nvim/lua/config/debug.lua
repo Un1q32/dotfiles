@@ -16,4 +16,16 @@ let g:nvimgdb_config_override = {
     \ }
 
 command! -nargs=* Bashdb GdbStartBashDB bashdb %p <args>
+command! Gdb lua _gdb_wrapper()
+command! Lldb lua _lldb_wrapper()
 ]], false)
+
+function _gdb_wrapper()
+    os.execute("gcc -g " .. vim.fn.expand("%:p"))
+    vim.cmd("GdbStart gdb -q ./a.out")
+end
+
+function _lldb_wrapper()
+    os.execute("gcc -g " .. vim.fn.expand("%:p"))
+    vim.cmd("GdbStartLLDB lldb ./a.out")
+end
