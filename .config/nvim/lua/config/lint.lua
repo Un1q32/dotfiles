@@ -1,21 +1,21 @@
-lint = require('lint')
+local lint = require('lint')
 
 lint.linters_by_ft = {
     sh = {'shellcheck'},
-    c = {'clangtidy'},
+    c = {'clangtidy'}
 }
 
 lint.linters.clangtidy.ignore_exitcode = true
 
 vim.fn.setenv('SHELLCHECK_OPTS', '--exclude SC2148')
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold", "CursorHoldI", "InsertLeave", "WinEnter" }, {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'WinEnter' }, {
     callback = function()
         lint.try_lint()
-    end,
+    end
 })
 
-vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "󰀪", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "󰌶", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = '󰀪', texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint', { text = '󰌶', texthl = 'DiagnosticSignHint' })

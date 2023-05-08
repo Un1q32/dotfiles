@@ -1,6 +1,4 @@
 vim.api.nvim_exec([[
-" We're going to define single-letter keymaps, so don't try to define them
-" in the terminal window.  The debugger CLI should continue accepting text commands.
 function! NvimGdbNoTKeymaps()
     tnoremap <silent> <buffer> <esc> <c-\><c-n>
 endfunction
@@ -12,20 +10,14 @@ let g:nvimgdb_config_override = {
     \ 'key_continue': 'c',
     \ 'key_until': 'u',
     \ 'key_breakpoint': 'b',
-    \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
+    \ 'set_tkeymaps': 'NvimGdbNoTKeymaps',
     \ }
 
 command! -nargs=* Bashdb GdbStartBashDB bashdb %p <args>
-command! Gdb lua _gdb_wrapper()
-command! Lldb lua _lldb_wrapper()
+command! Gdb lua gdb_wrapper()
 ]], false)
 
-function _gdb_wrapper()
-    os.execute("gcc -g " .. vim.fn.expand("%:p"))
-    vim.cmd("GdbStart gdb -q ./a.out")
-end
-
-function _lldb_wrapper()
-    os.execute("gcc -g " .. vim.fn.expand("%:p"))
-    vim.cmd("GdbStartLLDB lldb ./a.out")
+function gdb_wrapper()
+    os.execute('gcc -g ' .. vim.fn.expand('%:p'))
+    vim.cmd('GdbStart gdb -q ./a.out')
 end

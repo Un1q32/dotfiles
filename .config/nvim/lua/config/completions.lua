@@ -1,14 +1,14 @@
-local cmp = require("cmp")
+local cmp = require('cmp')
 
-require("luasnip.loaders.from_vscode").lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
   window = {
     completion = {
-      border = "rounded",
+      border = 'rounded',
     },
     documentation = {
-      border = "rounded",
+      border = 'rounded',
     },
   },
   mapping = cmp.mapping.preset.insert({
