@@ -7,6 +7,7 @@ Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
 Set-Alias lg lazygit
 Set-Alias ls real_ls
 Set-Alias cat real_cat
+Set-Alias file C:\Users\Joey\scoop\apps\git\current\usr\bin\file.exe
 Set-Alias strip llvm-strip
 Set-Alias ar llvm-ar
 Set-Alias objdump llvm-objdump
