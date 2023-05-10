@@ -21,7 +21,7 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 setopt appendhistory
 
-compinit -d "$CACHE/zcompdump" -i
+compinit -d "$CACHE/zcompdump"
 
 if [ "$EUID" -eq 0 ]; then
     PROMPT=$'%{\e[01;31m%}%n@%M%{\e[01;34m%} %~ #%{\e[0m%} '
