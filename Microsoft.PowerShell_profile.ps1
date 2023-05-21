@@ -12,7 +12,9 @@ function ..... { Set-Location "../../../.." }
 function real_ls { lsd --icon=never --group-directories-first -A -I NTUSER.DAT $args }
 function l { lsd --icon=never --group-directories-first -Alh -I NTUSER.DAT $args }
 function real_cat { bat --theme=ansi -P $args }
-function server { ssh joey@192.168.1.232 -p 2222 }
+function ln { sudo New-Item -ItemType SymbolicLink -Path $args[1] -Target $args[0] }
+function tree { tree.exe -aCI .git --dirsfirst $args }
+function server { ssh joey@192.168.1.232 -p2222 }
 function pcserver { ssh joey@192.168.1.233 }
 
 Import-Module PSReadLine
