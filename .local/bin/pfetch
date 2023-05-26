@@ -52,7 +52,7 @@ esc_p() {
 # against aliases and functions.
 has() {
     _cmd=$(command -v "$1") 2>/dev/null || return 1
-    [ -x "$_cmd" ] || return 1
+    [ -x "$_cmd" ] || [ "$os" = "Windows_NT" ] || return 1
 }
 
 log() {
@@ -459,12 +459,9 @@ get_host() {
         (*BSD* | Minix)
             host=$(sysctl -n hw.vendor hw.product)
         ;;
-		(CYGWIN*|MSYS*|MINGW*|Windows_NT)
-			host=$(wmic computersystem get model \
-			| tail -n +2 \
-			| sed 's/.*=//g'
-			)
-		;;
+        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
+            host=$(wmic computersystem get model | tail -n +2 | sed 's/.*=//g')
+        ;;
     esac
 
     # Turn the host string into an argument list so we can iterate
@@ -2032,7 +2029,7 @@ main() {
             printf "%s     show system information
 %s -u  update %s to the latest version
 %s -d  show stderr (debug mode)
-%s -v  show version information\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
+%s -v  show version information\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
             return 0
         ;;
     esac
