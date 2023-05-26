@@ -413,7 +413,6 @@ get_os() {
     esac
 }
 
-# shellcheck disable=SC2086
 get_kernel() {
     case $os in
         # Don't print kernel output on some systems as the
@@ -421,10 +420,10 @@ get_kernel() {
         (*BSD*|Haiku|Minix)
             return
         ;;
-	    # Use wmic to get the OS version
+        # Use wmic to get the OS version
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-	    kernel=$(wmic os get Version)
-	    kernel=$(echo $kernel | awk '{print $3}')
+            kernel=$(wmic os get Version | sed -n 2p)
+        ;;
     esac
 
     # '$kernel' is the cached output of 'uname -r'.
@@ -1071,7 +1070,7 @@ get_disk() {
 get_wm() {
     case $os in
         (Darwin*|CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            # Don't display window manager on macOS and Windows.
+            # Don't display window manager on macOS or Windows.
         ;;
 
         (*)
@@ -1412,7 +1411,7 @@ get_ascii() {
 				${c4}######  ######
 				${c4}######  ######
 			EOF
-		;;
+        ;;
 
         ([Dd]ahlia*)
             read_ascii 1 <<-EOF
@@ -2088,6 +2087,7 @@ main() {
         # contents of 'PF_INFO'.
         set -f
         set +f -- ${PF_INFO-ascii title os host kernel uptime pkgs memory}
+
         # Iterate over the info functions to determine the lengths of the
         # "info names" for output alignment. The option names and subtitles
         # match 1:1 so this is thankfully simple.
