@@ -183,18 +183,18 @@ get_title() {
     # Add escape sequences for coloring to user and host name unless $PF_COL3=COL1. As we embed
     # them directly in the arguments passed to log(), we cannot use esc_p().
 
-if ! [ "$PF_COL3" = "COL1" ]; then
-    esc SGR 1
-    user=$e$user
-    esc SGR "3${PF_COL3:-1}"
-    user=$e$user
-    esc SGR 1
-    user=$user$e
-    esc SGR 1
-    hostname=$e$hostname
-    esc SGR "3${PF_COL3:-1}"
-    hostname=$e$hostname
-fi
+    if ! [ "$PF_COL3" = "COL1" ]; then
+        esc SGR 1
+        user=$e$user
+        esc SGR "3${PF_COL3:-1}"
+        user=$e$user
+        esc SGR 1
+        user=$user$e
+        esc SGR 1
+        hostname=$e$hostname
+        esc SGR "3${PF_COL3:-1}"
+        hostname=$e$hostname
+    fi
 
     log "${user}@${hostname}" " " " " >&6
 }
@@ -421,7 +421,7 @@ get_kernel() {
         (*BSD*|Haiku|Minix)
             return
         ;;
-	# Use wmic to get the OS version
+	    # Use wmic to get the OS version
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
 	    kernel=$(wmic os get Version)
 	    kernel=$(echo $kernel | awk '{print $3}')
@@ -2007,7 +2007,6 @@ get_ascii() {
     } >&6
 }
 
-# shellcheck disable=1090,1091
 main() {
     case $* in
         -v)
@@ -2022,6 +2021,10 @@ main() {
             return 0
         ;;
 
+        -d)
+            # Below exec is not run, stderr is shown.
+        ;;
+
         '')
             exec 2>/dev/null
         ;;
@@ -2029,6 +2032,7 @@ main() {
         *)
             printf "%s     show system information
 %s -u  update %s to the latest version
+%s -d  show stderr (debug mode)
 %s -v  show version information\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
             return 0
         ;;
@@ -2041,19 +2045,10 @@ main() {
     # Store raw escape sequence character for later reuse.
     esc_c=$(printf '\033')
 
-    # If $XDG_CONFIG_HOME is set then look for the config file there,
-    # otherwise look for it in ~/.config
-    if [ -f "$PF_SOURCE" ]; then
-        . "$PF_SOURCE"
-    fi
-    if [ -f "$XDG_CONFIG_HOME/pfetch.conf" ]; then
-        . "$XDG_CONFIG_HOME/pfetch.conf"
-    elif [ -f "$HOME/.config/pfetch.conf" ]; then
-        . "$HOME/.config/pfetch.conf"
-    elif ! [ -e "$HOME/.config/pfetch.conf" ]; then # Create the config file if it doesn't exist.
-        mkdir -p "$HOME/.config"
-        printf "# pfetch configuration file\n" > "$HOME/.config/pfetch.conf"
-    fi
+    # Allow the user to execute their own script and modify or
+    # extend pfetch's behavior.
+    # shellcheck source=/dev/null
+    ! [ -f "$PF_SOURCE" ] || . "$PF_SOURCE"
 
     # Ensure that the 'TMPDIR' is writable as heredocs use it and
     # fail without the write permission. This was found to be the
