@@ -1,9 +1,8 @@
 call plug#begin()
-    Plug 'ap/vim-css-color'
     Plug 'tpope/vim-commentary'
 call plug#end()
 
-let mapleader = " "
+let mapleader = ' '
 set number
 set autoindent
 set expandtab
