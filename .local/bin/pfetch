@@ -598,7 +598,6 @@ get_uptime() {
     log uptime "${uptime:-0m}" >&6
 }
 
-sub="0"
 get_pkgs() {
     # This works by first checking for which package managers are
     # installed and then by printing each package manager's
@@ -607,20 +606,6 @@ get_pkgs() {
     # The output from this is then piped to 'wc -l' to count each
     # line, giving us the total package count of whatever package
     # managers are installed.
-    case $os in
-        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            has scoop      && sub=$((sub + 4))
-        ;;
-
-        (IRIX)
-            sub=$((sub + 3))
-        ;;
-    esac
-
-    if [ "$PF_ENABLEPIP" -eq 1 ]; then
-        has pip && sub=$((sub - $(pip list | wc -l) + 3))
-    fi
-
     packages=$(
         case $os in
             (Linux*)
@@ -727,8 +712,6 @@ get_pkgs() {
         esac | wc -l
     )
 
-    packages=$((packages - sub))
-
     # 'wc -l' can have leading and/or trailing whitespace
     # depending on the implementation, so strip them.
     # Procedure explained at https://github.com/dylanaraps/pure-sh-bible
@@ -737,6 +720,17 @@ get_pkgs() {
     packages=${packages%"${packages##*[![:space:]]}"}
 
     case $os in
+        # scoop adds extra lines to be fancy
+        (CYGWIN*|MSYS*|MINGW*|Windows_NT)
+            has scoop && packages=$((packages - 3))
+        ;;
+
+        # IRIX's package manager adds 3 lines of extra
+        # output which we must account for here.
+        (IRIX)
+            packages=$((packages - 3))
+        ;;
+
         # OpenBSD's wc prints whitespace before the output
         # which needs to be stripped.
         (OpenBSD)
