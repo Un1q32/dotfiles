@@ -517,7 +517,7 @@ get_uptime() {
     # math.
     case $os in
         (Linux*|Minix*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|Windows_NT|NetBSD*)
-            if ! [ -r /proc/uptime ] || [ "$PF_FORCEALTUPTIME" -eq 1 ]; then
+            if ! [ -r /proc/uptime ]; then
                 boot=$(date -d"$(uptime -s)" +%s)
                 now=$(date +%s)
                 s=$((now - boot))
@@ -526,7 +526,7 @@ get_uptime() {
             fi
         ;;
 
-        (Darwin*|*BSD*|DragonFly*)
+        (Darwin* | *BSD* | DragonFly*)
             s=$(sysctl -n kern.boottime)
 
             # Extract the uptime in seconds from the following output:
@@ -722,7 +722,7 @@ get_pkgs() {
     case $os in
         # scoop adds extra lines to be fancy
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            has scoop && packages=$((packages - 3))
+            has scoop && packages=$((packages - 5))
         ;;
 
         # IRIX's package manager adds 3 lines of extra
