@@ -52,7 +52,7 @@ esc_p() {
 # against aliases and functions.
 has() {
     _cmd=$(command -v "$1") 2>/dev/null || return 1
-    [ -x "$_cmd" ] || [ "$os" = "Windows_NT" ] || return 1
+    [ -x "$_cmd" ] || return 1
 }
 
 log() {
