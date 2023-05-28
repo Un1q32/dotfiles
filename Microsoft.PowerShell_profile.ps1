@@ -4,7 +4,6 @@ Set-Alias convert $HOME\scoop\apps\imagemagick\current\convert.exe
 Set-Alias lg lazygit
 Set-Alias ls real_ls
 Set-Alias cat real_cat
-Set-Alias ar llvm-ar
 Set-Alias objdump llvm-objdump
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
@@ -17,20 +16,6 @@ function ln { sudo New-Item -ItemType SymbolicLink -Path $args[1] -Target $args[
 function tree { tree.exe -aCI .git --dirsfirst $args }
 function server { ssh joey@192.168.1.232 -p2222 }
 function pcserver { ssh joey@192.168.1.233 }
-
-if ($(vi.exe --version 2> NUL) -eq "Nextvi. Forked by Maxime Bouillot. Originally made by Kyryl Melekhin.") {
-    function vi {
-        $args = $args -replace '\\', '/'
-        $args = $args -replace 'C:', '/c'
-        vi.exe $args
-    }
-
-    function ex {
-        $args = $args -replace '\\', '/'
-        $args = $args -replace 'C:', '/c'
-        vi.exe -e $args
-    }
-}
 
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
