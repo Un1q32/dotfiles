@@ -9,8 +9,8 @@ function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
 function ..... { Set-Location "../../../.." }
-function real_ls { lsd --icon=never --group-directories-first -A -I NTUSER.DAT $args }
-function l { lsd --icon=never --group-directories-first -Alh -I NTUSER.DAT $args }
+function real_ls { busybox ls --color --group-directories-first -AA $args }
+function l { busybox ls --color --group-directories-first -AAlh $args }
 function real_cat { bat --theme=ansi -P $args }
 function ln { sudo New-Item -ItemType SymbolicLink -Path $args[1] -Target $args[0] }
 function tree { tree.exe -aCI .git --dirsfirst $args }
