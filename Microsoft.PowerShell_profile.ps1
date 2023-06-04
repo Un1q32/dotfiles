@@ -5,6 +5,8 @@ Set-Alias lg lazygit
 Set-Alias ls real_ls
 Set-Alias cat real_cat
 Set-Alias objdump llvm-objdump
+Set-Alias strip llvm-strip
+Set-Alias sudo gsudo
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
 function .... { Set-Location "../../.." }
