@@ -19,6 +19,7 @@ function tree { tree.exe -aCI .git --dirsfirst $args }
 function server { ssh joey@192.168.1.232 -p2222 }
 function pcserver { ssh joey@192.168.1.233 }
 
+Import-Module gsudoModule
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadlineOption -EditMode vi
