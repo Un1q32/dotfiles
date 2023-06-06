@@ -26,3 +26,6 @@ alias deck='ssh deck@192.168.50.187 -p2222'
 # distro specific
 # alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
 # ldd() { objdump -p "$1" | rg 'DLL Name:' --color never | awk '{print $3}'; }
+# alias sudo='gsudo'
+# alias ln='sudo ln'
+# alias convert='magick convert'
