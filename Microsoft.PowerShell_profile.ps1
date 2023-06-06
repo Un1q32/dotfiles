@@ -16,6 +16,7 @@ function convert { magick convert $args }
 function tree { tree.exe -aCI .git --dirsfirst $args }
 function server { ssh joey@192.168.1.232 -p2222 }
 function pcserver { ssh joey@192.168.1.233 }
+function ldd { objdump -p $args[0] | rg 'DLL Name:' --color never | awk '{print $3}' }
 
 Import-Module gsudoModule
 Import-Module PSReadLine
