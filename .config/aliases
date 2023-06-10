@@ -19,9 +19,8 @@ alias l='ls -lh'
 # alias objdump='objdump -M intel --disassembler-color=color'
 
 # ssh
-alias server='ssh joey@104.1.155.191 -p2222'
-alias pcserver='ssh -t joey@104.1.155.191 -p2222 "ssh joey@192.168.1.233"'
-alias deck='ssh deck@192.168.50.187 -p2222'
+# alias server='ssh joey@104.1.155.191 -p2222'
+# alias pcserver='ssh -t joey@104.1.155.191 -p2222 "ssh joey@192.168.1.233"'
 
 # distro specific
 # alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
