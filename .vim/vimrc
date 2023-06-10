@@ -1,7 +1,9 @@
 call plug#begin()
     Plug 'tpope/vim-commentary'
+    Plug 'sheerun/vim-polyglot'
 call plug#end()
 
+colors default
 let mapleader = ' '
 set number
 set autoindent
