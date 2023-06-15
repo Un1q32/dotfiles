@@ -1,0 +1,58 @@
+font:
+  normal:
+    family: CaskaydiaCove Nerd Font Mono
+  size: 12.0
+
+draw_bold_text_with_bright_colors: false
+
+schemes:
+  LMFAO: &LMFAO
+    primary:
+      background: '#1C1C1C'
+      foreground: '#FFFFFF'
+    normal:
+      black:     '#0F0F0F'
+      red:       '#C01C28'
+      green:     '#26A22A'
+      yellow:    '#B68708'
+      blue:      '#12499B'
+      magenta:   '#A347BA'
+      cyan:      '#2AA1B3'
+      white:     '#D0CFCC'
+    bright:
+      black:     '#5E5C64'
+      red:       '#DB3A3A'
+      green:     '#2EC736'
+      yellow:    '#E9AD0C'
+      blue:      '#2A7BDE'
+      magenta:   '#C061CB'
+      cyan:      '#33C7DE'
+      white:     '#FFFFFF'
+
+colors: *LMFAO
+
+shell:
+  program: "C:\\Users\\Joey\\scoop\\apps\\busybox\\current\\busybox.exe"
+  args:
+    - ash
+    - -l
+
+working_directory: "C:\\Users\\Joey"
+
+key_bindings:
+  - { key: V,         mods: Control|Shift, action: Paste                       }
+  - { key: C,         mods: Control|Shift, action: Copy                        }
+  - { key: Insert,    mods: Shift,         action: PasteSelection              }
+  - { key: Key0,      mods: Control,       action: ResetFontSize               }
+  - { key: Equals,    mods: Control,       action: IncreaseFontSize            }
+  - { key: Plus,      mods: Control,       action: IncreaseFontSize            }
+  - { key: Minus,     mods: Control,       action: DecreaseFontSize            }
+  - { key: F11,       mods: None,          action: ToggleFullscreen            }
+  - { key: Paste,     mods: None,          action: Paste                       }
+  - { key: Copy,      mods: None,          action: Copy                        }
+  - { key: L,         mods: Control,       action: ClearLogNotice              }
+  - { key: L,         mods: Control,       chars: "\x0c"                       }
+  - { key: PageUp,    mods: None,          action: ScrollPageUp,   mode: ~Alt  }
+  - { key: PageDown,  mods: None,          action: ScrollPageDown, mode: ~Alt  }
+  - { key: Home,      mods: Shift,         action: ScrollToTop,    mode: ~Alt  }
+  - { key: End,       mods: Shift,         action: ScrollToBottom, mode: ~Alt  }
