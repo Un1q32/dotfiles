@@ -24,7 +24,7 @@ alias l='ls -lh'
 
 # distro specific
 # alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
-# ldd() { objdump -p "$1" | rg 'DLL Name:' --color never | awk '{print $3}'; }
+# ldd() { llvm-objdump -p "$1" | rg 'DLL Name:' --color never | awk '{print $3}'; }
 # alias sudo='gsudo'
 # alias ln='sudo ln'
 # alias convert='magick convert'
