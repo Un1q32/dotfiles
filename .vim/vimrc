@@ -4,6 +4,8 @@ call plug#begin()
 call plug#end()
 
 colors default
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 let mapleader = ' '
 set number
 set autoindent
