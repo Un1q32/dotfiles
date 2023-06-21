@@ -21,7 +21,11 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 setopt appendhistory
 
-compinit -d "$CACHE/zcompdump"
+if [ "$(uname -s)" = "Darwin" ]; then
+    compinit -d "$CACHE/zcompdump" -i
+else
+    compinit -d "$CACHE/zcompdump"
+fi
 
 if [ "$EUID" -eq 0 ]; then
     PROMPT=$'%{\e[1;31m%}%M%{\e[1;34m%} %~ #%{\e[0m%} '
