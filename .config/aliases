@@ -15,7 +15,7 @@ alias l='ls -lh'
 
 # only sometimes
 # alias lg='lazygit'
-# alias cat='bat --theme=ansi -P'
+# alias cat='bat'
 # alias objdump='objdump -M intel --disassembler-color=color'
 
 # ssh
