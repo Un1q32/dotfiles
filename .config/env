@@ -2,3 +2,4 @@
 export PF_SOURCE="$CONF/pfetch.conf"
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 export SUDO_PROMPT="Password:"
+export LESSHISTFILE=-
