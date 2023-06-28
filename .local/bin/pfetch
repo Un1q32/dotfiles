@@ -709,12 +709,22 @@ get_pkgs() {
         esac | wc -l
     )
 
+    # universal package managers that are on many different systems
+    unipkgs=$(
+        {
+            has cargo      && cargo install --list | grep -v '^ '
+            has pipx       && pipx list
+        } | wc -l
+    )
+
     # 'wc -l' can have leading and/or trailing whitespace
     # depending on the implementation, so strip them.
     # Procedure explained at https://github.com/dylanaraps/pure-sh-bible
     # (trim-leading-and-trailing-white-space-from-string)
     packages=${packages#"${packages%%[![:space:]]*}"}
     packages=${packages%"${packages##*[![:space:]]}"}
+    unipkgs=${unipkgs#"${unipkgs%%[![:space:]]*}"}
+    unipkgs=${unipkgs%"${unipkgs##*[![:space:]]}"}
 
     case $os in
         # scoop adds extra lines to be fancy
@@ -732,8 +742,11 @@ get_pkgs() {
         # which needs to be stripped.
         (OpenBSD)
             packages=$((packages))
+            unipkgs=$((unipkgs))
         ;;
     esac
+
+    packages=$((packages + unipkgs))
 
     case $packages in
         (1?*|[2-9]*)
@@ -2027,10 +2040,12 @@ main() {
         ;;
 
         *)
-            printf "%s     show system information
-%s -u  update %s to the latest version
-%s -d  show stderr (debug mode)
-%s -v  show version information\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
+            printf "%s" "\
+${0##*/}     show system information
+${0##*/} -u  update to the latest version
+${0##*/} -d  show stderr (debug mode)
+${0##*/} -v  show version information
+"
             return 0
         ;;
     esac
