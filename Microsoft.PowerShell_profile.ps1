@@ -4,6 +4,9 @@ Set-Alias lg lazygit
 Set-Alias ls real_ls
 Set-Alias cat real_cat
 Set-Alias sudo gsudo
+Set-Alias ar llvm-ar
+Set-Alias strings llvm-strings
+Set-Alias strip llvm-strip
 Set-Alias bash C:\Users\Joey\scoop\shims\bash.exe
 function .. { Set-Location ".." }
 function ... { Set-Location "../.." }
