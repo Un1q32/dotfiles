@@ -20,7 +20,6 @@ alias l='ls -lh'
 
 # distro specific
 # alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
-# ldd() { llvm-objdump -p "$1" | grep 'DLL Name:' | awk '{print $3}'; }
 # alias sudo='gsudo'
 # alias ln='sudo ln'
 # alias convert='magick convert'

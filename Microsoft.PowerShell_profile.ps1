@@ -21,7 +21,6 @@ function tree { tree.exe -aCI .git --dirsfirst $args }
 function server { ssh joey@192.168.1.232 -p2222 }
 function pcserver { ssh joey@192.168.1.233 }
 function objdump { llvm-objdump -M intel $args }
-function ldd { llvm-objdump -p $args[0] | grep 'DLL Name:' | awk '{print $3}' }
 
 Import-Module gsudoModule
 Import-Module PSReadLine
