@@ -12,33 +12,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    'github/copilot.vim',
-    'norcalli/nvim-colorizer.lua',
-    'akinsho/bufferline.nvim',
-    'OldWorldOrdr/nvim-base16',
-    'nvim-tree/nvim-tree.lua',
-    'nvim-tree/nvim-web-devicons',
     'tpope/vim-commentary',
-    'mfussenegger/nvim-lint',
-    'sheerun/vim-polyglot',
-    'folke/noice.nvim',
-    'rcarriga/nvim-notify',
-    'MunifTanjim/nui.nvim',
+    'noahfrederick/vim-noctu',
     'nvim-treesitter/nvim-treesitter',
-
-    -- 'hrsh7th/nvim-cmp',
-    -- 'hrsh7th/cmp-nvim-lsp',
-    -- 'L3MON4D3/LuaSnip',
-    -- 'saadparwaiz1/cmp_luasnip',
-    -- 'rafamadriz/friendly-snippets',
-    -- 'williamboman/mason.nvim',
-    -- 'williamboman/mason-lspconfig.nvim',
-    -- 'neovim/nvim-lspconfig',
+    'sheerun/vim-polyglot',
 }
-
-if vim.fn.has('win32') == 0 then
-    table.insert(plugins, 'sakhnik/nvim-gdb')
-end
 
 local opts = {}
 
