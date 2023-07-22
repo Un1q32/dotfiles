@@ -16,6 +16,7 @@ local plugins = {
     'noahfrederick/vim-noctu',
     'nvim-treesitter/nvim-treesitter',
     'sheerun/vim-polyglot',
+    'windwp/nvim-autopairs',
 }
 
 local opts = {}
