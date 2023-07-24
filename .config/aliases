@@ -16,7 +16,7 @@ alias l='ls -lh'
 # only sometimes
 # alias lg='lazygit'
 # alias cat='bat --style="header-filename,grid,numbers"'
-# alias objdump='objdump -M intel --disassembler-color=color'
+# alias objdump='objdump -Mintel --disassembler-color=color'
 
 # distro specific
 # alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
