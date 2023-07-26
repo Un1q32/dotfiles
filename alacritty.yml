@@ -32,10 +32,9 @@ schemes:
 colors: *LMFAO
 
 shell:
-  program: "C:\\Users\\Joey\\scoop\\apps\\busybox\\current\\busybox.exe"
+  program: "C:\\Users\\Joey\\AppData\\Local\\BusyBox\\busybox.exe"
   args:
     - ash
-    - -l
 
 working_directory: "C:\\Users\\Joey"
 
