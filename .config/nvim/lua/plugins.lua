@@ -17,6 +17,8 @@ local plugins = {
     'nvim-treesitter/nvim-treesitter',
     'sheerun/vim-polyglot',
     'windwp/nvim-autopairs',
+    'mfussenegger/nvim-lint',
+    'github/copilot.vim',
 }
 
 local opts = {}

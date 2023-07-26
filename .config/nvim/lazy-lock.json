@@ -1,0 +1,10 @@
+{
+  "copilot.vim": { "branch": "release", "commit": "a4a6d6b3f9e284e7f5c849619e06cd228cad8abd" },
+  "lazy.nvim": { "branch": "main", "commit": "3ad55ae678876516156cca2f361c51f7952a924b" },
+  "nvim-autopairs": { "branch": "master", "commit": "ae5b41ce880a6d850055e262d6dfebd362bb276e" },
+  "nvim-lint": { "branch": "master", "commit": "606d1eb9506627253b98cba3fd7efad255e33ee4" },
+  "nvim-treesitter": { "branch": "master", "commit": "7c1e944311a0d4eb2c8a346661ee4ed207aca514" },
+  "vim-commentary": { "branch": "master", "commit": "e87cd90dc09c2a203e13af9704bd0ef79303d755" },
+  "vim-noctu": { "branch": "master", "commit": "de2ff9855bccd72cd9ff3082bc89e4a4f36ea4fe" },
+  "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" }
+}
