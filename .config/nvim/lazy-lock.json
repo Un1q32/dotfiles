@@ -1,10 +1,11 @@
 {
-  "copilot.vim": { "branch": "release", "commit": "a4a6d6b3f9e284e7f5c849619e06cd228cad8abd" },
-  "lazy.nvim": { "branch": "main", "commit": "3ad55ae678876516156cca2f361c51f7952a924b" },
+  "copilot.vim": { "branch": "release", "commit": "f2a4acd62587c62910bda0b79405c585af43c002" },
+  "lazy.nvim": { "branch": "main", "commit": "dac844ed617dda4f9ec85eb88e9629ad2add5e05" },
   "nvim-autopairs": { "branch": "master", "commit": "ae5b41ce880a6d850055e262d6dfebd362bb276e" },
-  "nvim-lint": { "branch": "master", "commit": "606d1eb9506627253b98cba3fd7efad255e33ee4" },
-  "nvim-treesitter": { "branch": "master", "commit": "7c1e944311a0d4eb2c8a346661ee4ed207aca514" },
+  "nvim-base16": { "branch": "master", "commit": "577f155390123568bf398e905e549c2264e16ec3" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6" },
+  "nvim-lint": { "branch": "master", "commit": "30325d8fc3ce985395f22598c8b4f0b092e644ba" },
+  "nvim-treesitter": { "branch": "master", "commit": "8fa7ce35afe88b8294e6ced757aa14ec98414568" },
   "vim-commentary": { "branch": "master", "commit": "e87cd90dc09c2a203e13af9704bd0ef79303d755" },
-  "vim-noctu": { "branch": "master", "commit": "de2ff9855bccd72cd9ff3082bc89e4a4f36ea4fe" },
   "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" }
 }

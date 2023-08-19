@@ -24,4 +24,4 @@ vim.opt.backspace = '2'
 
 vim.opt.termguicolors = false
 
-vim.cmd.colorscheme('noctu')
+vim.cmd.colorscheme('base16-classic-dark')
