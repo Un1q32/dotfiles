@@ -2033,19 +2033,19 @@ odddd${c2}OMXk00OkOO${c7}ddddo
 
 main() {
     case $* in
-        -v)
-            printf '%s 1.0 (OldWorldOrdr fork)\n' "${0##*/}"
+        -v|--version)
+            printf '%s\n' "${0##*/} 1.0 (OldWorldOrdr fork)"
             return 0
         ;;
 
-        -u)
+        -u|--update)
             printf 'Updating...\n'
             curl -s -o "$0" https://raw.githubusercontent.com/OldWorldOrdr/pfetch/master/pfetch
             printf 'Done.\n'
             return 0
         ;;
 
-        -d)
+        -d|--debug)
             # Below exec is not run, stderr is shown.
         ;;
 
@@ -2054,7 +2054,7 @@ main() {
         ;;
 
         *)
-            printf "%s" "\
+            printf '%s' "\
 ${0##*/}     show system information
 ${0##*/} -u  update to the latest version
 ${0##*/} -d  show stderr (debug mode)
