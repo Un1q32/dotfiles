@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    'tpope/vim-commentary',
+    'numToStr/Comment.nvim',
     'norcalli/nvim-colorizer.lua',
     'OldWorldOrdr/nvim-base16',
     'nvim-treesitter/nvim-treesitter',
