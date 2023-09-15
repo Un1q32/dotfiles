@@ -4,8 +4,6 @@
   "lazy.nvim": { "branch": "main", "commit": "2a9354c7d2368d78cbd5575a51a2af5bd8a6ad01" },
   "nvim-autopairs": { "branch": "master", "commit": "defad64afbf19381fe31488a7582bbac421d6e38" },
   "nvim-base16": { "branch": "master", "commit": "577f155390123568bf398e905e549c2264e16ec3" },
-  "nvim-colorizer.lua": { "branch": "master", "commit": "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6" },
-  "nvim-lint": { "branch": "master", "commit": "73682da41b74c9c35f33b1b2dbd0cc02cc59452f" },
-  "nvim-treesitter": { "branch": "master", "commit": "b6492f41c46d9c3bc3550ecfb10c3f261e73cba6" },
-  "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" }
+  "nvim-lint": { "branch": "master", "commit": "12517fb62b9760053b3edebc0b03308921a30f5c" },
+  "nvim-treesitter": { "branch": "master", "commit": "48b237fd3f482aef2f5896b8b7a6ece71c19ad99" }
 }

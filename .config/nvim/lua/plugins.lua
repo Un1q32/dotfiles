@@ -13,10 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     'numToStr/Comment.nvim',
-    'norcalli/nvim-colorizer.lua',
     'OldWorldOrdr/nvim-base16',
     'nvim-treesitter/nvim-treesitter',
-    'sheerun/vim-polyglot',
     'windwp/nvim-autopairs',
     'mfussenegger/nvim-lint',
     'github/copilot.vim',
