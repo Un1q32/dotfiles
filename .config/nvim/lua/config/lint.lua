@@ -22,6 +22,7 @@ lint.linters.cppcheck.args = {
 }
 
 lint.linters.clangtidy.ignore_exitcode = true
+lint.linters.cppcheck.ignore_exitcode = true
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'WinEnter' }, {
     callback = function()

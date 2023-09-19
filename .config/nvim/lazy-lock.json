@@ -2,8 +2,8 @@
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "copilot.vim": { "branch": "release", "commit": "719dd8d0beab993dbad47a9e86ecb0dbd4a99da5" },
   "lazy.nvim": { "branch": "main", "commit": "2a9354c7d2368d78cbd5575a51a2af5bd8a6ad01" },
-  "nvim-autopairs": { "branch": "master", "commit": "defad64afbf19381fe31488a7582bbac421d6e38" },
-  "nvim-base16": { "branch": "master", "commit": "577f155390123568bf398e905e549c2264e16ec3" },
-  "nvim-lint": { "branch": "master", "commit": "12517fb62b9760053b3edebc0b03308921a30f5c" },
-  "nvim-treesitter": { "branch": "master", "commit": "48b237fd3f482aef2f5896b8b7a6ece71c19ad99" }
+  "nvim-autopairs": { "branch": "master", "commit": "7b3eb9b5813a22188c4dbb248475fcbaf9f4d195" },
+  "nvim-base16": { "branch": "master", "commit": "6b7aaff8abf9f862b872de0f23ec1ab510d01c96" },
+  "nvim-lint": { "branch": "master", "commit": "3c936d9d28aa5c5d4c90780e1c3430171bdcb3c2" },
+  "nvim-treesitter": { "branch": "master", "commit": "940916074833159bf7b8cbb4bf5e59161461fa5a" }
 }
