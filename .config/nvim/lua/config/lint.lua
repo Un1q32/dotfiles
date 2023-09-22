@@ -9,16 +9,21 @@ lint.linters.shellcheck.args = {'--format', 'json', '-', '--exclude=SC2148'}
 lint.linters.cppcheck.args = {
     "--enable=warning,style,performance,information",
     function()
-      if vim.bo.filetype == "cpp" then
-        return "--language=c++"
-      else
-        return "--language=c"
-      end
+        if vim.bo.filetype == "cpp" then
+            return "--language=c++"
+        else
+            return "--language=c"
+        end
     end,
     "--inline-suppr",
     "--quiet",
     "--cppcheck-build-dir=" .. vim.env.HOME .. "/.cache/cppcheck",
     "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
+    function()
+        if vim.fn.has('mac') == 1 then
+            return "--suppress=missingIncludeSystem"
+        end
+    end
 }
 
 lint.linters.clangtidy.ignore_exitcode = true
