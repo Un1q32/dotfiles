@@ -19,11 +19,7 @@ lint.linters.cppcheck.args = {
     "--quiet",
     "--cppcheck-build-dir=" .. vim.env.HOME .. "/.cache/cppcheck",
     "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
-    function()
-        if vim.fn.has('mac') == 1 then
-            return "--suppress=missingIncludeSystem"
-        end
-    end
+    "--suppress=missingIncludeSystem",
 }
 
 lint.linters.clangtidy.ignore_exitcode = true
