@@ -345,31 +345,29 @@ get_os() {
             # the system has. As far as I'm aware there's no "dynamic" way
             # of grabbing this information.
             case $mac_version in
-                (10.4*)  distro='Mac OS X Tiger' ;;
-                (10.5*)  distro='Mac OS X Leopard' ;;
-                (10.6*)  distro='Mac OS X Snow Leopard' ;;
-                (10.7*)  distro='Mac OS X Lion' ;;
-                (10.8*)  distro='OS X Mountain Lion' ;;
-                (10.9*)  distro='OS X Mavericks' ;;
-                (10.10*) distro='OS X Yosemite' ;;
-                (10.11*) distro='OS X El Capitan' ;;
-                (10.12*) distro='macOS Sierra' ;;
-                (10.13*) distro='macOS High Sierra' ;;
-                (10.14*) distro='macOS Mojave' ;;
-                (10.15*) distro='macOS Catalina' ;;
-                (11*)    distro='macOS Big Sur' ;;
-                (12*)    distro='macOS Monterey' ;;
-                (13*)    distro='macOS Ventura' ;;
-                (14*)    distro='macOS Sonoma' ;;
-                (*)      distro='macOS' ;;
+                (10.4*)  distro="Mac OS X $mac_version Tiger"        ;;
+                (10.5*)  distro="Mac OS X $mac_version Leopard"      ;;
+                (10.6*)  distro="Mac OS X $mac_version Snow Leopard" ;;
+                (10.7*)  distro="Mac OS X $mac_version Lion"         ;;
+                (10.8*)  distro="OS X $mac_version Mountain Lion"    ;;
+                (10.9*)  distro="OS X $mac_version Mavericks"        ;;
+                (10.10*) distro="OS X $mac_version Yosemite"         ;;
+                (10.11*) distro="OS X $mac_version El Capitan"       ;;
+                (10.12*) distro="macOS $mac_version Sierra"          ;;
+                (10.13*) distro="macOS $mac_version High Sierra"     ;;
+                (10.14*) distro="macOS $mac_version Mojave"          ;;
+                (10.15*) distro="macOS $mac_version Catalina"        ;;
+                (11*)    distro="macOS $mac_version Big Sur"         ;;
+                (12*)    distro="macOS $mac_version Monterey"        ;;
+                (13*)    distro="macOS $mac_version Ventura"         ;;
+                (14*)    distro="macOS $mac_version Sonoma"          ;;
+                (*)      distro="macOS $mac_version"                 ;;
             esac
 
             # Use the ProductName to determine if we're running in iOS.
             case $mac_product in
-                (iP*) distro='iOS' ;;
+                (iP*) distro="iOS $mac_version" ;;
             esac
-
-            distro="$distro $mac_version"
         ;;
 
         (Haiku)
