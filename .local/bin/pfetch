@@ -2040,7 +2040,7 @@ main() {
             printf 'Updating...\n'
             curl -s -o "$0" https://raw.githubusercontent.com/OldWorldOrdr/pfetch/master/pfetch
             printf 'Done.\n'
-            return 0
+            exit 0
         ;;
 
         -d|--debug)
