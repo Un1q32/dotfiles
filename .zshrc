@@ -16,7 +16,7 @@ ZSHDATA="$DATA/zsh"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
 [ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
 
-export HISTFILE="$CACHE/history"
+export HISTFILE="$CONF/history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt appendhistory

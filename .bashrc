@@ -11,7 +11,7 @@
 [ -f "$CONF/env" ] && . "$CONF/env"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
 
-HISTFILE="$CACHE/history"
+HISTFILE="$CONF/history"
 
 if [ "$EUID" -eq 0 ]; then
     PS1="\[\e[1;31m\]\h\[\e[1;34m\] \w #\[\e[0m\] "
