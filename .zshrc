@@ -7,11 +7,10 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 [ -n "$XDG_CACHE_HOME" ] && CACHE="$XDG_CACHE_HOME" || CACHE="$HOME/.cache"
 [ -n "$XDG_DATA_HOME" ] && DATA="$XDG_DATA_HOME" || DATA="$HOME/.local/share"
 [ -n "$XDG_BIN_HOME" ] && BIN="$XDG_BIN_HOME" || BIN="$HOME/.local/bin"
-ZSHDATA="$DATA/zsh"
 
 [ -d "$CONF" ] || mkdir -p "$CONF"
 [ -d "$CACHE" ] || mkdir -p "$CACHE"
-[ -d "$ZSHDATA" ] || mkdir -p "$ZSHDATA"
+[ -d "$DATA/zsh" ] || mkdir -p "$DATA/zsh"
 [ -f "$CONF/env" ] && . "$CONF/env"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
 [ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
@@ -35,8 +34,8 @@ else
     clear
     pfetch
 
-    if [ -d "$ZSHDATA/plugins" ]; then
-        for plug in "$ZSHDATA"/plugins/*/*.plugin.zsh; do
+    if [ -d "$DATA/zsh/plugins" ]; then
+        for plug in "$DATA"/zsh/plugins/*/*.plugin.zsh; do
             . "$plug"
         done
     fi
