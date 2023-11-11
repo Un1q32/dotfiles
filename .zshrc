@@ -26,7 +26,7 @@ else
     compinit -d "$CACHE/zcompdump"
 fi
 
-if [ "$EUID" -eq 0 ]; then
+if [ "$EUID" = 0 ]; then
     PROMPT=$'%{\e[1;31m%}%M%{\e[1;34m%} %~ #%{\e[0m%} '
 else
     PROMPT=$'%{\e[1;32m%}%n@%M%{\e[1;34m%} %~ $%{\e[0m%} '
