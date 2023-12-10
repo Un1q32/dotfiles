@@ -7,7 +7,7 @@
 [ -d "$CONF" ] || mkdir -p "$CONF"
 [ -d "$CACHE" ] || mkdir -p "$CACHE"
 [ -d "$DATA" ] || mkdir -p "$DATA"
-[ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
+[ -d "$BIN" ] || mkdir -p "$BIN"
 [ -f "$CONF/env" ] && . "$CONF/env"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
 

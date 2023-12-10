@@ -13,7 +13,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 [ -d "$DATA/zsh" ] || mkdir -p "$DATA/zsh"
 [ -f "$CONF/env" ] && . "$CONF/env"
 [ -f "$CONF/aliases" ] && . "$CONF/aliases"
-[ -d "$BIN" ] || mkdir -p "$BIN" && export PATH="$BIN:$PATH"
+[ -d "$BIN" ] || mkdir -p "$BIN"
 
 export HISTFILE="$CONF/history"
 export HISTSIZE=10000
