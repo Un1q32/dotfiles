@@ -1,5 +1,5 @@
 # vim:filetype=sh
-# shellcheck disable=SC2046
+# shellcheck disable=2046,2086
 # essentials
 alias cls='clear'
 alias ..='cd ..'
@@ -20,7 +20,14 @@ alias l='ls -lh'
 # alias objdump='objdump -Mintel --disassembler-color=color'
 
 # distro specific
-# alias autoremove='sudo pacman -Rs $(pacman -Qqtd)'
+# autoremove() {
+#     pkgs=$(pacman -Qqtd)
+#     if [ -n "$pkgs" ]; then
+#         sudo pacman -Rs $pkgs
+#     else
+#         printf "No packages to remove.\n"
+#     fi
+# }
 # autoremove() { sudo zypper rm --clean-deps $(zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | uniq); }
 # alias sudo='gsudo'
 # alias ln='sudo ln'
