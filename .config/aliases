@@ -21,9 +21,9 @@ alias l='ls -lh'
 
 # distro specific
 # autoremove() {
-#     pkgs=$(pacman -Qqtd)
+#     pkgs="$(pacman -Qqtd)"
 #     if [ -n "$pkgs" ]; then
-#         sudo pacman -Rs $pkgs
+#         sudo pacman -Rs $(pacman -Qqtd)
 #     else
 #         printf "No packages to remove.\n"
 #     fi
