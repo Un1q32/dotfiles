@@ -1,3 +1,5 @@
 [user]
 	email = joey.t.reinhart@gmail.com
 	name = OldWorldOrdr
+[init]
+	defaultBranch = master
