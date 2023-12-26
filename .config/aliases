@@ -18,6 +18,7 @@ alias l='ls -lh'
 # alias lg='lazygit'
 # alias cat='bat --style="header-filename,grid,numbers"'
 # alias objdump='objdump -Mintel --disassembler-color=color'
+# alias gdb='gdb -q'
 
 # distro specific
 # autoremove() {
