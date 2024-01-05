@@ -5,7 +5,7 @@ lint.linters_by_ft = {
     c = {'cppcheck'}
 }
 
-lint.linters.shellcheck.args = {'--format', 'json', '-', '--exclude=SC2148'}
+lint.linters.shellcheck.args = {'--format', 'json', '-', '--exclude=2148,1072'}
 lint.linters.cppcheck.args = {
     "--enable=warning,style,performance,information",
     function()
@@ -17,7 +17,6 @@ lint.linters.cppcheck.args = {
     end,
     "--inline-suppr",
     "--quiet",
-    "--cppcheck-build-dir=" .. vim.env.HOME .. "/.cache/cppcheck",
     "--template={file}:{line}:{column}: [{id}] {severity}: {message}",
     "--suppress=missingIncludeSystem",
 }
