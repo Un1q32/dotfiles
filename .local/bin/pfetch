@@ -1041,6 +1041,15 @@ get_disk() {
 		;;
     esac
 
+    # The main mount point to be checked by 'df'
+    if [ -z "$PF_DISKPATH" ]; then
+        case "$distro" in
+            iOS*)     "/private/var"      ;;
+            Android*) "/data" ;;
+        esac
+        PF_DISKPATH="${_:-'/'}"
+    fi
+
     # Read the output of 'df' line by line. The first line
     # contains header information for the "table" so it is
     # skipped.
@@ -1051,7 +1060,7 @@ get_disk() {
     #
     # TODO: Configure disks to send to 'df'. Do we need to
     #       do this? I'd love to _not_ do it.
-	df "$@" / | while read -r name full used _ perc _; do
+	df "$@" "$PF_DISKPATH" | while read -r name full used _ perc _; do
 		[ "$header" ] || { header=1; continue; }
 
 		case $df_version in
