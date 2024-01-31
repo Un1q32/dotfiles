@@ -19,6 +19,7 @@ alias l='ls -lh'
 # alias cat='bat --style="header-filename,grid,numbers"'
 # alias objdump='objdump -Mintel --disassembler-color=color'
 # alias gdb='gdb -q'
+# alias wget='wget2 -c'
 
 # distro specific
 # autoremove() {
