@@ -663,7 +663,7 @@ get_pkgs() {
                         ;;
 
                         (*)
-                            printf '%s\n' "$pkg_list"
+                            printf '%s' "$pkg_list"
                         ;;
                     esac
                 }
@@ -1224,6 +1224,32 @@ get_editor() {
     log editor "${editor##*/}" >&6
 }
 
+get_term() {
+    log term "${TERMINAL:-$TERM}" >&6
+}
+
+get_res() {
+    case $os in
+        Linux*|GNU*|*BSD*)
+            if has xdpyinfo; then
+                resolution=$(xdpyinfo | grep 'dimensions')
+                resolution="${resolution#*dimensions:}"
+                resolution="${resolution% pixels*}"
+            elif has xrandr; then
+                # shellcheck disable=2063
+                resolution="$(xrandr | grep '*')"
+                resolution="${resolution#* }"
+                resolution="${resolution% *}"
+            fi
+        ;;
+        Darwin*)
+            resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2 "x" $4}')
+        ;;
+    esac
+
+    log res "$resolution" >&6
+}
+
 get_palette() {
     # Print the first 8 terminal colors. This uses the existing
     # sequences to change text color with a sequence prepended
@@ -1418,7 +1444,7 @@ get_ascii() {
 				${c5}  .//.
 			EOF
         ;;
-		
+
 		CYGWIN*|MSYS*|MINGW*|Windows_NT)
 		    read_ascii 4 <<-EOF
 				${c4}######  ######
