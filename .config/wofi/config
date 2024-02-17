@@ -1,0 +1,8 @@
+show=drun
+width=20%
+insensitive=true
+prompt=
+single_click=true
+allow_images=true
+image_size=20
+key_expand=Tab
