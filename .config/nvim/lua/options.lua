@@ -22,7 +22,7 @@ vim.opt.expandtab = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.backspace = '2'
 
-vim.opt.termguicolors = false
+vim.opt.termguicolors = true
 
 vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = '󰀪', texthl = 'DiagnosticSignWarn' })
