@@ -1,51 +1,60 @@
-window {
-margin: 0px;
-border: 1px solid #bd93f9;
-background-color: #282a36;
+/** ********** Fonts ********** **/
+* {
+    font-family: "JetBrains Mono", "Iosevka Nerd Font", archcraft, sans-serif;
+    font-size: 12px;
 }
 
-#input {
-margin: 5px;
-border: none;
-color: #f8f8f2;
-background-color: #44475a;
-}
-
-#inner-box {
-margin: 5px;
-border: none;
-background-color: #282a36;
+#window {
+	background-color: --wofi-color0;
+	color: --wofi-color2;
+	border: 2px solid --wofi-color1;
+	border-radius: 0px;
 }
 
 #outer-box {
-margin: 5px;
-border: none;
-background-color: #282a36;
+	padding: 20px;
+}
+
+#input {
+	background-color: --wofi-color1;
+	border: 0px solid --wofi-color3;
+	padding: 8px 12px;
 }
 
 #scroll {
-margin: 0px;
-border: none;
+	margin-top: 20px;
+}
+
+#inner-box {
+}
+
+#img {
+	padding-right: 8px;
 }
 
 #text {
-margin: 5px;
-border: none;
-color: #f8f8f2;
-} 
-
-#entry.activatable #text {
-color: #282a36;
+	color: --wofi-color2;
 }
 
-#entry > * {
-color: #f8f8f2;
+#text:selected {
+	color: --wofi-color0;
+}
+
+#entry {
+	padding: 6px;
 }
 
 #entry:selected {
-background-color: #44475a;
+	background-color: --wofi-color3;
+	color: --wofi-color0;
 }
 
-#entry:selected #text {
-font-weight: bold;
+#unselected {
+}
+
+#selected {
+}
+
+#input, #entry:selected {
+	border-radius: 4px;
 }
