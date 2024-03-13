@@ -1,13 +1,8 @@
-call plug#begin()
-    Plug 'tpope/vim-commentary'
-    Plug 'sheerun/vim-polyglot'
-call plug#end()
-
+syntax on
 colors default
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 let mapleader = ' '
-set number
 set autoindent
 set expandtab
 set shiftround
