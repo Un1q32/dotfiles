@@ -650,7 +650,9 @@ get_pkgs() {
             has apk        && get_single_pkg apk 0 apk info
             has guix       && get_single_pkg guix 0 guix package --list-installed
             has opkg       && get_single_pkg opkg 0 opkg list-installed
+            has radula     && get_single_pkg radula 0 radula -ch
             has flatpak    && get_single_pkg flatpak 0 flatpak list
+            has snap       && get_single_pkg snap 0 snap list
 
             # Directories containing packages.
             has kiss       && get_single_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
@@ -668,6 +670,7 @@ get_pkgs() {
             # Commands which print packages one per line.
             has scoop      && get_single_pkg scoop 5 scoop list
             has winget     && get_single_pkg winget 0 winget list
+            has chocolatey && get_single_pkg chocolatey 0 choco list --local-only
             has pacman-key && get_single_pkg pacman 0 pacman -Qq
         ;;
 
@@ -2065,15 +2068,8 @@ odddd${c2}OMXk00OkOO${c7}ddddo
 main() {
     case $* in
         -v|--version)
-            printf '%s\n' "${0##*/} 1.0 (OldWorldOrdr fork)"
+            printf '%s\n' "${0##*/} 1.0 (Un1q32 fork)"
             return 0
-        ;;
-
-        -u|--update)
-            printf 'Updating...\n'
-            curl -s -o "$0" https://raw.githubusercontent.com/OldWorldOrdr/pfetch/master/pfetch
-            printf 'Done.\n'
-            exit 0
         ;;
 
         -d|--debug)
@@ -2087,7 +2083,6 @@ main() {
         *)
             printf '%s' "\
 ${0##*/}     show system information
-${0##*/} -u  update to the latest version
 ${0##*/} -d  show stderr (debug mode)
 ${0##*/} -v  show version information
 "
