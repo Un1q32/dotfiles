@@ -653,11 +653,13 @@ get_pkgs() {
             has radula     && get_single_pkg radula 0 radula -ch
             has flatpak    && get_single_pkg flatpak 0 flatpak list
             has snap       && get_single_pkg snap 0 snap list
+            has urpmq      && get_single_pkg urpmq 0 urpmq --list-media active
+            has birb       && get_single_pkg birb 0 birb --list-installed
 
             # Directories containing packages.
             has kiss       && get_single_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
             has cpt-list   && get_single_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
-            has brew       && get_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"*
+            has brew       && get_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
             has emerge     && get_single_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
             has pkgtool    && get_single_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
             has eopkg      && get_single_pkg eopkg 0 printf '%s\n' /var/lib/eopkg/package/*
@@ -680,7 +682,7 @@ get_pkgs() {
             has dpkg       && get_single_pkg dpkg 0 dpkg-query -f '.\n' -W
 
             # Directories containing packages.
-            has brew       && get_single_pkg homebrew 0 printf '%s\n' /usr/local/Cellar/*
+            has brew       && get_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
 
             # 'port' prints a single line of output to 'stdout'
             # when no packages are installed and exits with
@@ -735,7 +737,7 @@ get_pkgs() {
         ;;
 
         (SerenityOS)
-            get_single_pkg SerenityOS 0 sh -c 'while IFS=" " read -r type _; do [ "$type" != dependency ] && printf "\n"; done < /usr/Ports/packages.db'
+            get_single_pkg SerenityOS 0 sh -c "while IFS=" " read -r type _; do [ \"\$type\" != dependency ] && printf '\n'; done < /usr/Ports/packages.db"
         ;;
     esac
 
@@ -1531,15 +1533,15 @@ get_ascii() {
 
         ([Ee]volution*)
             read_ascii 4 <<-EOF
-      ${c7},coddoc'
-   'cddddddddddc'
- 'ddd${c2}OWWXXXXXXK${c7}ddo.
-.dddd${c2}OMX${c7}ddddddddddd.
-odddd${c2}OMXk00OkOO${c7}ddddo
-.dddd${c2}OMX${c7}kOOOxOkdddd.
- .ddd${c2}OWWXXXXXXK${c7}ddd'
-   'dddddddddddd'
-      'cddddd,
+				      ${c7},coddoc'
+				   'cddddddddddc'
+				 'ddd${c2}OWWXXXXXXK${c7}ddo.
+				.dddd${c2}OMX${c7}ddddddddddd.
+				odddd${c2}OMXk00OkOO${c7}ddddo
+				.dddd${c2}OMX${c7}kOOOxOkdddd.
+				 .ddd${c2}OWWXXXXXXK${c7}ddd'
+				   'dddddddddddd'
+				      'cddddd,
 			EOF
         ;;
 
