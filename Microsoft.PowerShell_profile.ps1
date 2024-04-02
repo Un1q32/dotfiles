@@ -18,8 +18,6 @@ function real_cat { bat -P $args }
 function ln { sudo New-Item -ItemType SymbolicLink -Path $args[1] -Target $args[0] }
 function convert { magick convert $args }
 function tree { tree.exe -aCI .git --dirsfirst $args }
-function server { ssh joey@192.168.1.232 -p2222 }
-function pcserver { ssh joey@192.168.1.233 }
 function objdump { llvm-objdump -M intel $args }
 
 Import-Module gsudoModule
