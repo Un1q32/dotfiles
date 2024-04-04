@@ -17,7 +17,7 @@ alias l='ls -lh'
 # only sometimes
 # alias lg='lazygit'
 # alias cat='bat --style="header-filename,grid,numbers"'
-# alias objdump='objdump -Mintel --disassembler-color=color'
+# alias objdump='objdump --disassembler-color=color'
 # alias gdb='gdb -q'
 # alias wget='wget2 -c'
 
