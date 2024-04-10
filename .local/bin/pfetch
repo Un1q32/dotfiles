@@ -867,7 +867,7 @@ get_memory() {
         ;;
 
         (NetBSD*)
-            mem_full=$(($(sysctl -n hw.physmem64) / 1024 / 1024))
+            mem_full=$(($(/sbin/sysctl -n hw.physmem64) / 1024 / 1024))
 
             # NetBSD implements a lot of the Linux '/proc' filesystem,
             # this uses the same parser as the Linux memory detection.
