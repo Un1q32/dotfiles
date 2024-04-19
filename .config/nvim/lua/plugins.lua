@@ -18,7 +18,7 @@ local plugins = {
     'windwp/nvim-autopairs',
     'mfussenegger/nvim-lint',
     'github/copilot.vim',
-    'NMAC427/guess-indent.nvim';
+    'NMAC427/guess-indent.nvim',
 }
 
 local opts = {}
