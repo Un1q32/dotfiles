@@ -1,6 +1,5 @@
 require('config.treesitter')
 require('config.lsp')
-require('config.lint')
 require('config.format')
 
 require("nvim-autopairs").setup()
