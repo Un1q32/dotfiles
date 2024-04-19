@@ -16,9 +16,12 @@ local plugins = {
     'Un1q32/nvim-base16',
     'nvim-treesitter/nvim-treesitter',
     'windwp/nvim-autopairs',
-    'mfussenegger/nvim-lint',
     'github/copilot.vim',
     'NMAC427/guess-indent.nvim',
+    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'mfussenegger/nvim-lint',
 }
 
 local opts = {}
