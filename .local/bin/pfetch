@@ -99,7 +99,7 @@ log() {
     # and it allows for easy swapping of info order and amount.
     #
     # $[2] ___      $[3] goldie@KISS
-    # $[4](.· |     $[5] os KISS Linux
+    # $[4](.. |     $[5] os KISS Linux
     #     (<> |
     #    / __  \
     #   ( /  \ /|
@@ -218,7 +218,7 @@ get_os() {
     }
 
     case $os in
-        (Linux*)
+        (Linux*|GNU*)
             # Some Linux distributions (which are based on others)
             # fail to identify as they **do not** change the upstream
             # distribution's identification packages or files.
@@ -517,7 +517,7 @@ get_uptime() {
     # converting that data into days, hours and minutes using simple
     # math.
     case $os in
-        (Linux*|Minix*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|Windows_NT|NetBSD*)
+        (Linux*|Minix*|GNU*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|Windows_NT|NetBSD*)
             if ! [ -r /proc/uptime ]; then
                 boot=$(date -d"$(uptime -s)" +%s)
                 now=$(date +%s)
@@ -527,7 +527,7 @@ get_uptime() {
             fi
         ;;
 
-        (Darwin* | *BSD* | DragonFly*)
+        (Darwin*|*BSD*|DragonFly*)
             s=$(sysctl -n kern.boottime)
 
             # Extract the uptime in seconds from the following output:
@@ -1316,6 +1316,21 @@ get_ascii() {
     # False positive.
     # shellcheck disable=2154
     case ${1:-${PF_ASCII:-${distro:-$os}}} in
+        [Aa]lma*)
+            read_ascii 3 <<- EOF
+				${c1}    {#@ .,  ${c3} 	,..<.
+				${c1}    ._\`=#  ${c3}/#=#,""
+				${c1}   \\##  \` ${c3}|\`  '=##
+				${c4}   .${c1}\`'=.  ${c3}\\  ${c2},_,.,
+				${c4} .."#-   ${c1}\`  ${c2}\`    \\##
+				${c4}\## #   ./  ${c6}\\.  ${c2}.#\`,+
+				${c4}   =##=' ${c6},   |, ${c2}|# ""
+				${c6}       =##=++#|
+				${c6}         ##\\''
+				${c6}         \`'\`
+			EOF
+        ;;
+
         ([Aa]lpine*)
             read_ascii 4 <<-EOF
 				${c4}   /\\ /\\
@@ -1545,7 +1560,7 @@ get_ascii() {
 			EOF
         ;;
 
-        ([Ff]edora*|[Nn]obara*)
+        ([Ff]edora*)
             read_ascii 4 <<-EOF
 				        ${c4},'''''.
 				       ${c4}|   ,.  |
@@ -1595,19 +1610,14 @@ get_ascii() {
 			EOF
         ;;
 
-        ([Gg][Nn][Uu]*)
-            read_ascii 3 <<-EOF
-				${c2}    _-\`\`-,   ,-\`\`-_
-				${c2}  .'  _-_|   |_-_  '.
-				${c2}./    /_._   _._\\    \\.
-				${c2}:    _/_._\`:'_._\\_    :
-				${c2}\\:._/  ,\`   \\   \\ \\_.:/
-				${c2}   ,-';'.@)  \\ @) \\
-				${c2}   ,'/'  ..- .\\,-.|
-				${c2}   /'/' \\(( \\\` ./ )
-				${c2}    '/''  \\_,----'
-				${c2}      '/''   ,;/''
-				${c2}         \`\`;'
+        ([Gg][Nn][Uu]*|[Hh]urd*)
+            read_ascii 7 <<-EOF
+				${c7} ---${c3}[ ]${c7}<----
+				${c7} v   |      |
+				${c3}[ ]${c7}  --->${c3}[ ]${c7}|
+				${c7} ^        | |
+				${c7} |  ${c3}[ ]${c7}---|--
+				${c7}  ---------
 			EOF
         ;;
 
@@ -1636,7 +1646,7 @@ get_ascii() {
 			EOF
         ;;
 
-        ([Hh]ydroOS*)
+        ([Hh]ydro[Oo][Ss]*)
 			read_ascii 4 <<-EOF
 				${c1}╔╗╔╗──╔╗───╔═╦══╗
 				${c1}║╚╝╠╦╦╝╠╦╦═╣║║══╣
@@ -1842,6 +1852,20 @@ get_ascii() {
 			EOF
         ;;
 
+        [Nn]obara*)
+            read_ascii 4 <<- EOF
+				${c7} _._.  _..,._
+				${c7}|##############.
+				${c7}|################.
+				${c7}|#####/  .  \\#####.
+				${c7}|####|  ###   > ###
+				${c7}|#####  \`\`\`  |#####
+				${c7}|######==_   |#####
+				${c7}|######"##|  |#####
+				${c7} \`""\`\`    '  \`\\##/
+			EOF
+        ;;
+
         ([Oo]pen[Bb][Ss][Dd]*)
             read_ascii 3 <<-EOF
 				${c3}      _____
@@ -1886,6 +1910,18 @@ get_ascii() {
 				${c1}|  |  |  |.----.|  |_
 				${c1}|  |  |  ||   _||   _|
 				${c1}|________||__|  |____|
+			EOF
+        ;;
+
+        [Oo]racle*)
+        read_ascii 1 <<- EOF
+				${c1}     ___________
+				${c1} ./##+++++++++++##\\.
+				${c1}/#/               \\#\\
+				${c1}|#|               |#|
+				${c1}\\#\\               /#/
+				${c1} "##.............##"
+				${c1}   \`'''''''''''''\`
 			EOF
         ;;
 
@@ -1971,6 +2007,21 @@ get_ascii() {
 			EOF
         ;;
 
+        [Ss]team*)
+            read_ascii 5 <<- EOF
+				${c5}        ____
+				${c5}    .=+#######=.
+				${c5}  ;########-"""-#\\.
+				${c5} ###${c7}####${c5}#/ .'\`'.'##.
+				${c7}:########  |   | ${c5}|##
+				${c7}\`''"=#='    \`'\`,.##${c5}#
+				${c7}      \`'.  .+#######
+				${c7}\`##.  .." #########
+				${c7}  '=#=.,+########"
+				${c7}    \`"=######="\`
+			EOF
+        ;;
+
         ([Ss]un[Oo][Ss]|[Ss]olaris*)
             read_ascii 3 <<-EOF
 				${c3}       .   .;   .
@@ -1989,6 +2040,20 @@ get_ascii() {
 				${c3}(_) |   |
 				 ${c3} \\  --- _/
 				    ${c3} ---(_)
+			EOF
+        ;;
+
+        [Vv]anilla*)
+            read_ascii 3 <<- EOF
+				${c3}        .#.
+				${c3}       :#=#:
+				${c3}.#=":.:##=##:.:"=#.
+				${c3}\`:#=#####=####=##:\`
+				${c3} \`:####=\` \`=####:\`
+				${c3}   .:##,. .,##:.
+				${c3}  :##=##:-:##=##:
+				${c3} .#=##:\`   \`:##=#.
+				${c3}  \`\`           \`\`
 			EOF
         ;;
 
