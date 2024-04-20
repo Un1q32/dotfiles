@@ -1,5 +1,7 @@
 require('config.treesitter')
-require('config.lsp')
+if vim.fn.system('uname -o') ~= 'Android\n' then
+  require('config.lsp')
+end
 require('config.format')
 
 require("nvim-autopairs").setup()

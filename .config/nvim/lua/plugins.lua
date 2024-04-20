@@ -18,10 +18,13 @@ local plugins = {
     'windwp/nvim-autopairs',
     'github/copilot.vim',
     'NMAC427/guess-indent.nvim',
-    'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
 }
+
+if vim.fn.system('uname -o') ~= 'Android\n' then
+  table.insert(plugins, 'neovim/nvim-lspconfig')
+  table.insert(plugins, 'williamboman/mason.nvim')
+  table.insert(plugins, 'williamboman/mason-lspconfig.nvim')
+end
 
 local opts = {}
 
