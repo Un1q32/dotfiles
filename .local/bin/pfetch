@@ -284,24 +284,24 @@ get_os() {
                 ;;
             esac
 
-            # Check to see if Linux is running in Windows 10 under
+            # Check to see if Linux is running in Windows under
             # WSL1 (Windows subsystem for Linux [version 1]) and
             # append a string accordingly.
             #
             # If the kernel version string ends in "-Microsoft",
-            # we're very likely running under Windows 10 in WSL1.
+            # we're very likely running under Windows in WSL1.
             if [ -n "$WSLENV" ]; then
-                distro="${distro}${WSLENV+ on Windows 10 [WSL2]}"
+                distro="${distro}${WSLENV+ on Windows [WSL2]}"
 
-            # Check to see if Linux is running in Windows 10 under
+            # Check to see if Linux is running in Windows under
             # WSL2 (Windows subsystem for Linux [version 2]) and
             # append a string accordingly.
             #
             # This checks to see if '$WSLENV' is defined. This
-            # appends the Windows 10 string even if '$WSLENV' is
+            # appends the Windows string even if '$WSLENV' is
             # empty. We only need to check that is has been _exported_.
             elif [ -z "${kernel%%*-Microsoft}" ]; then
-                distro="$distro on Windows 10 [WSL1]"
+                distro="$distro on Windows [WSL1]"
             fi
         ;;
 
@@ -2138,7 +2138,7 @@ get_ascii() {
 main() {
     case $* in
         -v|--version)
-            printf '%s\n' "${0##*/} 1.0 (Un1q32 fork)"
+            printf '%s\n' "${0##*/} 1.0"
             return 0
         ;;
 
@@ -2151,11 +2151,11 @@ main() {
         ;;
 
         *)
-            printf '%s' "\
+            cat <<EOF
 ${0##*/}     show system information
 ${0##*/} -d  debug mode
 ${0##*/} -v  show version
-"
+EOF
             return 0
         ;;
     esac
