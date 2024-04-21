@@ -441,9 +441,12 @@ get_host() {
             # Despite what these files are called, version doesn't
             # always contain the version nor does name always contain
             # the name.
-            read -r name    < /sys/devices/virtual/dmi/id/product_name
-            read -r version < /sys/devices/virtual/dmi/id/product_version
-            read -r model   < /sys/firmware/devicetree/base/model
+            [ -f /sys/devices/virtual/dmi/id/product_name ] && \
+                read -r name < /sys/devices/virtual/dmi/id/product_name
+            [ -f /sys/devices/virtual/dmi/id/product_version ] && \
+                read -r version < /sys/devices/virtual/dmi/id/product_version
+            [ -f /sys/firmware/devicetree/base/model ] && \
+                read -r model < /sys/firmware/devicetree/base/model
 
             host="$name $version $model"
         ;;
@@ -742,8 +745,8 @@ get_pkgs() {
     esac
 
     # package managers that are on many different systems
-    has cargo      && get_single_pkg cargo cargo install --list | grep -v '^ '
-    has pipx       && get_single_pkg pipx pipx list
+    has cargo      && get_single_pkg cargo 0 sh -c 'cargo install --list | grep -v "^ "'
+    has pipx       && get_single_pkg pipx 0 pipx list
 
     case $total_pkgs in
         (1?*|[2-9]*)
@@ -2150,8 +2153,8 @@ main() {
         *)
             printf '%s' "\
 ${0##*/}     show system information
-${0##*/} -d  show stderr (debug mode)
-${0##*/} -v  show version information
+${0##*/} -d  debug mode
+${0##*/} -v  show version
 "
             return 0
         ;;
