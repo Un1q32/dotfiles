@@ -331,21 +331,26 @@ get_os() {
             #
             # '_' is used to nullify a field. '_ _ line _' basically
             # says "populate $line with the third field's contents".
-            while IFS='<>' read -r _ _ line _; do
-                case $line in
-                    # Match 'ProductVersion' and read the next line
-                    # directly as it contains the key's value.
-                    ProductVersion)
-                        IFS='<>' read -r _ _ mac_version _
-                        continue
-                    ;;
+            if command -v sw_vers >/dev/null; then
+                mac_version="$(sw_vers -productVersion)"
+                mac_product="$(sw_vers -productName)"
+            else
+                while IFS='<>' read -r _ _ line _; do
+                    case $line in
+                        # Match 'ProductVersion' and read the next line
+                        # directly as it contains the key's value.
+                        ProductVersion)
+                            IFS='<>' read -r _ _ mac_version _
+                            continue
+                        ;;
 
-                    ProductName)
-                        IFS='<>' read -r _ _ mac_product _
-                        continue
-                    ;;
-                esac
-            done < /System/Library/CoreServices/SystemVersion.plist
+                        ProductName)
+                            IFS='<>' read -r _ _ mac_product _
+                            continue
+                        ;;
+                    esac
+                done < /System/Library/CoreServices/SystemVersion.plist
+            fi
 
             # Use the ProductVersion to determine which macOS/OS X codename
             # the system has. As far as I'm aware there's no "dynamic" way
