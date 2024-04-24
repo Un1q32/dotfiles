@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { silent = true })
+vim.keymap.set('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>', { silent = true })
 
 vim.opt.number = true
 vim.opt.showmode = false
