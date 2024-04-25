@@ -770,29 +770,39 @@ get_memory() {
         # MemUsed = MemTotal + Shmem - MemFree - Buffers - Cached - SReclaimable
         # Source: https://github.com/KittyKatt/screenFetch/issues/386
         (Linux*|CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            # Parse the '/proc/meminfo' file splitting on ':' and 'k'.
-            # The format of the file is 'key:   000kB' and an additional
-            # split is used on 'k' to filter out 'kB'.
-            while IFS=':k '  read -r key val _; do
-                case $key in
-                    (MemTotal)
-                        mem_used=$((mem_used + val))
-                        mem_full=$val
-                    ;;
+            if [ -f /proc/meminfo ]; then
+                # Parse the '/proc/meminfo' file splitting on ':' and 'k'.
+                # The format of the file is 'key:   000kB' and an additional
+                # split is used on 'k' to filter out 'kB'.
+                while IFS=':k '  read -r key val _; do
+                    case $key in
+                        (MemTotal)
+                            mem_used=$((mem_used + val))
+                            mem_full=$val
+                        ;;
 
-                    (Shmem)
-                        mem_used=$((mem_used + val))
-                    ;;
+                        (Shmem)
+                            mem_used=$((mem_used + val))
+                        ;;
 
-                    (MemFree | Buffers | Cached | SReclaimable)
-                        mem_used=$((mem_used - val))
-                    ;;
+                        (MemFree | Buffers | Cached | SReclaimable)
+                            mem_used=$((mem_used - val))
+                        ;;
 
-                esac
-            done < /proc/meminfo
+                    esac
+                done < /proc/meminfo
 
-            mem_used=$((mem_used / 1024))
-            mem_full=$((mem_full / 1024))
+                mem_used=$((mem_used / 1024))
+                mem_full=$((mem_full / 1024))
+            elif command -v free >/dev/null; then
+                # parse the output of 'free -m'
+                {
+                    read -r _ mem_full mem_used _ # discard the first line
+                    read -r _ mem_full mem_used _
+                } <<-EOF
+                    $(free -m)
+				EOF
+            fi
         ;;
 
         # Used memory is calculated using the following "formula":
