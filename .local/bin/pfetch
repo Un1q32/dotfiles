@@ -224,7 +224,11 @@ get_os() {
     # On first run, this function displays _nothing_, only on the second
     # invocation is 'log()' called.
     [ -n "$distro" ] && {
-        log os "$distro" >&6
+        if [ -n "$PF_OS" ]; then
+            log os "$PF_OS" >&6
+        else
+            log os "$distro" >&6
+        fi
         return
     }
 
@@ -444,6 +448,11 @@ get_kernel() {
 }
 
 get_host() {
+    if [ -n "$PF_HOST" ]; then
+        log host "$PF_HOST" >&6
+        return
+    fi
+
     case $os in
         (Linux*)
             # Despite what these files are called, version doesn't
