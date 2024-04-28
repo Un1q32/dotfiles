@@ -159,6 +159,23 @@ log() {
     info_height=$((${info_height:-0} + 1))
 }
 
+wmic_read() {
+    # This function is used to remove useless garbage from wmic output.
+    # A command like 'wmic os get Caption' will output:
+    # Caption
+    # Microsoft Windows 7 Enterprise
+    # <BLANK LINE>
+    # This function transforms the output into:
+    # Microsoft Windows 7 Enterprise
+    {
+        read -r _
+        read -r line
+        printf '%s\n' "$line"
+    } <<-EOF
+        $(wmic "$@")
+	EOF
+}
+
 get_title() {
     # Username is retrieved by first checking '$USER' with a fallback
     # to the 'id -un' command.
@@ -306,16 +323,7 @@ get_os() {
         ;;
 
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            # Grab everything after the first instance of
-            # white-space in the command output of 'wmic'.
-            #
-            # The format of 'wmic' is as follows:
-            # Caption=Microsoft Windows 7 Enterprise
-            #
-            # This extracts:    ^^^^^^^^^^^^^^^^^^^^
-            read -r _ distro <<-EOF
-    			$(wmic os get Caption | head -n 2 | tail -n +2)
-			EOF
+            distro=$(wmic_read os get Caption)
         ;;
 
         (Darwin*)
@@ -430,9 +438,10 @@ get_kernel() {
         (*BSD*|Haiku|Minix)
             return
         ;;
+
         # Use wmic to get the OS version
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            kernel=$(wmic os get Version | sed -n 2p)
+            kernel=$(wmic_read os get Version)
         ;;
     esac
 
@@ -473,7 +482,7 @@ get_host() {
             host=$(sysctl -n hw.vendor hw.product)
         ;;
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            host=$(wmic computersystem get model | tail -n +2 | sed 's/.*=//g')
+            host=$(wmic_read computersystem get model)
         ;;
     esac
 
@@ -678,7 +687,11 @@ get_pkgs() {
 
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
             # Commands which print packages one per line.
-            has scoop      && get_single_pkg scoop 5 scoop list
+            has scoop && {
+                scoopapps=$(command -v scoop)
+                scoopapps="${scoopapps%/*}/../apps"
+                get_single_pkg scoop 1 printf '%s\n' "$scoopapps"/*
+            }
             has winget     && get_single_pkg winget 0 winget list
             has chocolatey && get_single_pkg chocolatey 0 choco list --local-only
             has pacman-key && get_single_pkg pacman 0 pacman -Qq
