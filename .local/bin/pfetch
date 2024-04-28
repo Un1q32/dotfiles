@@ -228,12 +228,6 @@ get_os() {
         return
     }
 
-    # allow the user to override the distro name
-    [ -n "$PF_DISTRO" ] && {
-        distro="$PF_DISTRO"
-        return
-    }
-
     case $os in
         (Linux*|GNU*)
             # Some Linux distributions (which are based on others)
@@ -616,7 +610,7 @@ get_uptime() {
     log uptime "${uptime:-0m}" >&6
 }
 
-get_single_pkg() {
+count_single_pkg() {
     # This function is used to count the number of packages installed
     # from each individual package manager.
     # The first arguement is the name of the package manager. The second
@@ -658,31 +652,31 @@ get_pkgs() {
     case $os in
         (Linux*)
             # Commands which print packages one per line.
-            has bonsai     && get_single_pkg bonsai 0 bonsai list
-            has crux       && get_single_pkg pkginfo 0 pkginfo -i
-            has pacman-key && get_single_pkg pacman 0 pacman -Qq
-            has dpkg       && get_single_pkg dpkg 0 dpkg-query -f '.\n' -W
-            has rpm        && get_single_pkg rpm 0 rpm -qa
-            has xbps-query && get_single_pkg xbps 0 xbps-query -l
-            has apk        && get_single_pkg apk 0 apk info
-            has guix       && get_single_pkg guix 0 guix package --list-installed
-            has opkg       && get_single_pkg opkg 0 opkg list-installed
-            has radula     && get_single_pkg radula 0 radula -ch
-            has flatpak    && get_single_pkg flatpak 0 flatpak list
-            has snap       && get_single_pkg snap 0 snap list
-            has urpmq      && get_single_pkg urpmq 0 urpmq --list-media active
-            has birb       && get_single_pkg birb 0 birb --list-installed
+            has bonsai     && count_single_pkg bonsai 0 bonsai list
+            has crux       && count_single_pkg pkginfo 0 pkginfo -i
+            has pacman-key && count_single_pkg pacman 0 pacman -Qq
+            has dpkg       && count_single_pkg dpkg 0 dpkg-query -f '.\n' -W
+            has rpm        && count_single_pkg rpm 0 rpm -qa
+            has xbps-query && count_single_pkg xbps 0 xbps-query -l
+            has apk        && count_single_pkg apk 0 apk info
+            has guix       && count_single_pkg guix 0 guix package --list-installed
+            has opkg       && count_single_pkg opkg 0 opkg list-installed
+            has radula     && count_single_pkg radula 0 radula -ch
+            has flatpak    && count_single_pkg flatpak 0 flatpak list
+            has snap       && count_single_pkg snap 0 snap list
+            has urpmq      && count_single_pkg urpmq 0 urpmq --list-media active
+            has birb       && count_single_pkg birb 0 birb --list-installed
 
             # Directories containing packages.
-            has kiss       && get_single_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
-            has cpt-list   && get_single_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
-            has brew       && get_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
-            has emerge     && get_single_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
-            has pkgtool    && get_single_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
-            has eopkg      && get_single_pkg eopkg 0 printf '%s\n' /var/lib/eopkg/package/*
+            has kiss       && count_single_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
+            has cpt-list   && count_single_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
+            has brew       && count_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
+            has emerge     && count_single_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
+            has pkgtool    && count_single_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
+            has eopkg      && count_single_pkg eopkg 0 printf '%s\n' /var/lib/eopkg/package/*
 
             # 'nix' requires two commands.
-            has nix-store  && get_single_pkg nix sh -c 'nix-store -q --requisites /run/current-system/sw; nix-store -q --requisites ~/.nix-profile'
+            has nix-store  && count_single_pkg nix sh -c 'nix-store -q --requisites /run/current-system/sw; nix-store -q --requisites ~/.nix-profile'
         ;;
 
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
@@ -690,20 +684,20 @@ get_pkgs() {
             has scoop && {
                 scoopapps=$(command -v scoop)
                 scoopapps="${scoopapps%/*}/../apps"
-                get_single_pkg scoop 1 printf '%s\n' "$scoopapps"/*
+                count_single_pkg scoop 1 printf '%s\n' "$scoopapps"/*
             }
-            has winget     && get_single_pkg winget 0 winget list
-            has chocolatey && get_single_pkg chocolatey 0 choco list --local-only
-            has pacman-key && get_single_pkg pacman 0 pacman -Qq
+            has winget     && count_single_pkg winget 0 winget list
+            has chocolatey && count_single_pkg chocolatey 0 choco list --local-only
+            has pacman-key && count_single_pkg pacman 0 pacman -Qq
         ;;
 
         (Darwin*)
             # Commands which print packages one per line.
-            has pkgin      && get_single_pkg pkgin 0 pkgin list
-            has dpkg       && get_single_pkg dpkg 0 dpkg-query -f '.\n' -W
+            has pkgin      && count_single_pkg pkgin 0 pkgin list
+            has dpkg       && count_single_pkg dpkg 0 dpkg-query -f '.\n' -W
 
             # Directories containing packages.
-            has brew       && get_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
+            has brew       && count_single_pkg homebrew 0 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
 
             # 'port' prints a single line of output to 'stdout'
             # when no packages are installed and exits with
@@ -722,49 +716,49 @@ get_pkgs() {
                     ;;
 
                     (*)
-                        get_single_pkg macports 0 printf '%s' "$pkg_list"
+                        count_single_pkg macports 0 printf '%s' "$pkg_list"
                     ;;
                 esac
             }
         ;;
 
         (FreeBSD*|DragonFly*)
-            get_single_pkg FreeBSD 0 pkg info
+            count_single_pkg FreeBSD 0 pkg info
         ;;
 
         (OpenBSD*)
-            get_single_pkg OpenBSD 0 printf '%s\n' /var/db/pkg/*/
+            count_single_pkg OpenBSD 0 printf '%s\n' /var/db/pkg/*/
         ;;
 
         (NetBSD*)
-            get_single_pkg pkgsrc 0 pkg_info
+            count_single_pkg pkgsrc 0 pkg_info
         ;;
 
         (Haiku)
-            get_single_pkg Haiku 0 printf '%s\n' /boot/system/package-links/*
+            count_single_pkg Haiku 0 printf '%s\n' /boot/system/package-links/*
         ;;
 
         (Minix)
-            get_single_pkg Minix 0 printf '%s\n' /usr/pkg/var/db/pkg/*/
+            count_single_pkg Minix 0 printf '%s\n' /usr/pkg/var/db/pkg/*/
         ;;
 
         (SunOS)
-            has pkginfo && get_single_pkg pkginfo 0 pkginfo -i
-            has pkg     && get_single_pkg pkg 0 pkg list
+            has pkginfo && count_single_pkg pkginfo 0 pkginfo -i
+            has pkg     && count_single_pkg pkg 0 pkg list
         ;;
 
         (IRIX)
-            get_single_pkg IRIX 3 versions -b
+            count_single_pkg IRIX 3 versions -b
         ;;
 
         (SerenityOS)
-            get_single_pkg SerenityOS 0 sh -c "while IFS=" " read -r type _; do [ \"\$type\" != dependency ] && printf '\n'; done < /usr/Ports/packages.db"
+            count_single_pkg SerenityOS 0 sh -c "while IFS=" " read -r type _; do [ \"\$type\" != dependency ] && printf '\n'; done < /usr/Ports/packages.db"
         ;;
     esac
 
     # package managers that are on many different systems
-    has cargo      && get_single_pkg cargo 0 sh -c 'cargo install --list | grep -v "^ "'
-    has pipx       && get_single_pkg pipx 0 pipx list
+    has cargo      && count_single_pkg cargo 0 sh -c 'cargo install --list | grep -v "^ "'
+    has pipx       && count_single_pkg pipx 0 pipx list
 
     case $total_pkgs in
         (1?*|[2-9]*)
@@ -1262,7 +1256,7 @@ get_term() {
     log term "${TERMINAL:-$TERM}" >&6
 }
 
-get_res() {
+get_resolution() {
     case $os in
         Linux*|GNU*|*BSD*)
             if has xdpyinfo; then
