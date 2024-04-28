@@ -476,7 +476,7 @@ get_host() {
             host=$(sysctl -n hw.vendor hw.product)
         ;;
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
-            host=$(wmic_read computersystem get model)
+            host=$(wmic_read computersystem get manufacturer,model)
         ;;
     esac
 
