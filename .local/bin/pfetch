@@ -52,6 +52,8 @@ esc_p() {
 # against aliases and functions.
 has() {
     _cmd=$(command -v "$1") 2>/dev/null || return 1
+    # busybox-w32's shell doesn't return a full path for builtin applets,
+    # causing the executable check to fail. This is a workaround.
     [ "$os" = "Windows_NT" ] && return 0
     [ -x "$_cmd" ] || return 1
 }
