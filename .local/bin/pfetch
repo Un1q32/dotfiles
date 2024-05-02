@@ -1076,16 +1076,16 @@ get_disk() {
         # any other 'df' version provides these flags.
         *)
             set -- -P -h
-		;;
+        ;;
     esac
 
     # The main mount point to be checked by 'df'
     if [ -z "$PF_DISKPATH" ]; then
         case "$distro" in
-            iOS*)     "/private/var"      ;;
-            Android*) "/data" ;;
+            iOS*)     PF_DISKPATH="/private/var" ;;
+            Android*) PF_DISKPATH="/data"        ;;
+            *)        PF_DISKPATH="/"            ;;
         esac
-        PF_DISKPATH="${_:-'/'}"
     fi
 
     # Read the output of 'df' line by line. The first line
@@ -1095,32 +1095,27 @@ get_disk() {
     # The next lines are then split to grab the relevant
     # information and thankfully the output remains the
     # same between all but one 'df' implementation.
-    #
-    # TODO: Configure disks to send to 'df'. Do we need to
-    #       do this? I'd love to _not_ do it.
-	df "$@" "$PF_DISKPATH" | while read -r name full used _ perc _; do
-		[ "$header" ] || { header=1; continue; }
+    df "$@" "$PF_DISKPATH" | while read -r name full used _ perc _; do
+        [ "$header" ] || { header=1; continue; }
 
-		case $df_version in
-			# The 'df' command is from IRIX.
-			*befhikm*)
-				used=$((used/1024/1024))G
-				full=$((full/1024/1024))G
-			;;
-		esac
-		#
-		# probably a better way to do this, but a simple fixs
-		case $os in
-			CYGWIN*|MSYS*|MINGW*|Windows_NT)
-				windisk=$(df -h | tail -n +2 | awk 'NR==1{print $4" / "$3,"("$6")"}')
-				log disk "$windisk" >&6
-			;;
-			*)
-				log disk "$used / $full ($perc)" >&6
-			;;
-		esac
-	done
-
+        case $df_version in
+            # The 'df' command is from IRIX.
+            *befhikm*)
+                used=$((used/1024/1024))G
+                full=$((full/1024/1024))G
+            ;;
+        esac
+        # probably a better way to do this, but a simple fixs
+        case $os in
+            CYGWIN*|MSYS*|MINGW*|Windows_NT)
+                windisk=$(df -h | tail -n +2 | awk 'NR==1{print $4" / "$3,"("$6")"}')
+                log disk "$windisk" >&6
+            ;;
+            *)
+                log disk "$used / $full ($perc)" >&6
+            ;;
+        esac
+    done
 }
 
 get_wm() {
