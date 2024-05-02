@@ -52,6 +52,7 @@ esc_p() {
 # against aliases and functions.
 has() {
     _cmd=$(command -v "$1") 2>/dev/null || return 1
+    [ "$os" = "Windows_NT" ] && return 0
     [ -x "$_cmd" ] || return 1
 }
 
@@ -182,20 +183,18 @@ get_title() {
     user=${USER:-$(id -un)}
 
     # Hostname is retrieved by first checking '$HOSTNAME' with a fallback
-    # to the 'hostname' command.
-    #
-    # Disable the warning about '$HOSTNAME' being undefined in POSIX sh as
-    # the intention for using it is allowing the user to overwrite the
-    # value on invocation.
-    # shellcheck disable=3028,2039
-    hostname=${HOSTNAME:-${hostname:-$(hostname)}}
-
-    # If the hostname is still not found, fallback to the contents of the
-    # /etc/hostname file.
-    [ -n "$hostname" ] || read -r hostname < /etc/hostname
-
-    # If the hostname is STILL not found, set it as "unknown"
-    [ -n "$hostname" ] || hostname="unknown"
+    # to the 'hostname' command, then to the '/etc/hostname' file
+    if [ -z "$hostname" ]; then
+        if [ -n "$HOSTNAME" ]; then
+            hostname="$HOSTNAME"
+        elif has hostname; then
+            hostname=$(hostname)
+        elif [ -r /etc/hostname ]; then
+            read -r hostname < /etc/hostname
+        else
+            hostname="unknown"
+        fi
+    fi
 
     # Add escape sequences for coloring to user and host name unless $PF_COL3=COL1. As we embed
     # them directly in the arguments passed to log(), we cannot use esc_p().
@@ -223,14 +222,14 @@ get_os() {
     #
     # On first run, this function displays _nothing_, only on the second
     # invocation is 'log()' called.
-    [ -n "$distro" ] && {
+    if [ -n "$distro" ]; then
         if [ -n "$PF_OS" ]; then
             log os "$PF_OS" >&6
         else
             log os "$distro" >&6
         fi
         return
-    }
+    fi
 
     case $os in
         (Linux*|GNU*)
@@ -810,7 +809,7 @@ get_memory() {
 
                 mem_used=$((mem_used / 1024))
                 mem_full=$((mem_full / 1024))
-            elif command -v free >/dev/null; then
+            elif has free; then
                 # parse the output of 'free -m'
                 {
                     read -r _ mem_full mem_used _ # discard the first line
@@ -2169,7 +2168,7 @@ get_ascii() {
 main() {
     case $* in
         -v|--version)
-            printf '%s\n' "${0##*/} 1.0"
+            printf '%s\n' "${0##*/} 1.0.0"
             return 0
         ;;
 
@@ -2201,7 +2200,7 @@ EOF
     # Allow the user to execute their own script and modify or
     # extend pfetch's behavior.
     # shellcheck source=/dev/null
-    ! [ -f "$PF_SOURCE" ] || . "$PF_SOURCE"
+    [ -f "$PF_SOURCE" ] && . "$PF_SOURCE"
 
     # Ensure that the 'TMPDIR' is writable as heredocs use it and
     # fail without the write permission. This was found to be the
