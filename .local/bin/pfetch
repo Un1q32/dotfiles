@@ -963,8 +963,8 @@ get_memory() {
             hw_pagesize=$(pagesize)
 
             # 'kstat' outputs memory in the following format:
-            # unix:0:system_pages:pagestotal	1046397
-            # unix:0:system_pages:pagesfree		885018
+            # unix:0:system_pages:pagestotal    1046397
+            # unix:0:system_pages:pagesfree     885018
             #
             # This simply uses the first "element" (white-space
             # separated) as the key and the second element as the
@@ -1213,14 +1213,15 @@ get_wm() {
                     # don't set '_NET_WM_NAME'.
                     while read -r ps_line; do
                         case $ps_line in
-                            (*catwm*)     wm=catwm ;;
-                            (*fvwm*)      wm=fvwm ;;
-                            (*dwm*)       wm=dwm ;;
-                            (*2bwm*)      wm=2bwm ;;
-                            (*monsterwm*) wm=monsterwm ;;
+                            (*catwm*)     wm=catwm          ;;
+                            (*fvwm*)      wm=fvwm           ;;
+                            (*dwm*)       wm=dwm            ;;
+                            (*2bwm*)      wm=2bwm           ;;
+                            (*monsterwm*) wm=monsterwm      ;;
                             (*wmaker*)    wm='Window Maker' ;;
-                            (*sowm*)      wm=sowm ;;
-							(*penrose*)   wm=penrose ;;
+                            (*sowm*)      wm=sowm           ;;
+                            (*penrose*)   wm=penrose        ;;
+                            (*Hyprland*)  wm=Hyprland       ;;
                         esac
                     done <<-EOF
                         $(ps x)
@@ -2165,7 +2166,7 @@ get_ascii() {
 main() {
     case $* in
         -v|--version)
-            printf '%s\n' "${0##*/} 1.0.0"
+            printf '%s\n' "${0##*/} 1.0.1"
             return 0
         ;;
 
@@ -2232,6 +2233,7 @@ EOF
     # Allow the user to specify the order and inclusion of information
     # functions through the 'PF_INFO' environment variable.
     # shellcheck disable=2086
+    [ "$PF_INFO" = "all" ] && PF_INFO="ascii title os host kernel uptime pkgs memory disk wm de shell editor term resolution palette"
     {
         # Disable globbing and set the positional parameters to the
         # contents of 'PF_INFO'.
