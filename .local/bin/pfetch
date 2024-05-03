@@ -164,16 +164,15 @@ log() {
 
 wmic_read() {
     # This function is used to remove useless garbage from wmic output.
-    # A command like 'wmic os get Caption' will output:
-    # Caption
-    # Microsoft Windows 7 Enterprise
-    # <BLANK LINE>
-    # This function transforms the output into:
-    # Microsoft Windows 7 Enterprise
     {
-        read -r _
-        read -r line
-        printf '%s\n' "$line"
+        while IFS= read -r line; do
+            if [ -n "$line" ]; then
+                # skip if the line starts with whitespace
+                printf '%s' "$line" | grep -q '^[[:space:]]' && continue
+                # remove trailing whitespace
+                printf '%s\n' "${line%"${line##*[![:space:]]}"}"
+            fi
+        done
     } <<-EOF
         $(wmic "$@")
 	EOF
@@ -1292,6 +1291,9 @@ get_resolution() {
         ;;
         Darwin*)
             has system_profiler && resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2 "x" $4}')
+        ;;
+        CYGWIN*|MSYS*|MINGW*|Windows_NT)
+            resolution="$(wmic_read path Win32_VideoController get CurrentHorizontalResolution)x$(wmic_read path Win32_VideoController get CurrentVerticalResolution)"
         ;;
     esac
 
