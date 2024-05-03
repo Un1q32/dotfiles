@@ -470,7 +470,10 @@ get_host() {
         ;;
 
         (Darwin* | FreeBSD* | DragonFly*)
-            host=$(sysctl -n hw.model)
+            case $distro in
+                iOS*) host=$(uname -m)           ;;
+                *)    host=$(sysctl -n hw.model) ;;
+            esac
         ;;
 
         (NetBSD*)
@@ -827,7 +830,9 @@ get_memory() {
         (Darwin*)
             hw_pagesize="$(sysctl -n hw.pagesize)"
             mem_full=$(($(sysctl -n hw.memsize) / 1024 / 1024))
-            pages_used="$(($(sysctl -n vm.page_pageable_internal_count) - $(sysctl -n vm.page_purgeable_count)))"
+            pages=$(sysctl -n vm.page_pageable_internal_count 2>/dev/null)
+            purge=$(sysctl -n vm.page_purgeable_count 2>/dev/null)
+            [ -n "$pages" ] && [ -n "$purge" ] && pages_used=$((pages - purge))
 
             # Parse the 'vmstat' file splitting on ':' and '.'.
             # The format of the file is 'key:   000.' and an additional
@@ -1277,11 +1282,11 @@ get_resolution() {
             fi
         ;;
         Darwin*)
-            resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2 "x" $4}')
+            has system_profiler && resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2 "x" $4}')
         ;;
     esac
 
-    log res "$resolution" >&6
+    log resolution "$resolution" >&6
 }
 
 get_palette() {
@@ -2232,8 +2237,8 @@ EOF
 
     # Allow the user to specify the order and inclusion of information
     # functions through the 'PF_INFO' environment variable.
-    # shellcheck disable=2086
     [ "$PF_INFO" = "all" ] && PF_INFO="ascii title os host kernel uptime pkgs memory disk wm de shell editor term resolution palette"
+    # shellcheck disable=2086
     {
         # Disable globbing and set the positional parameters to the
         # contents of 'PF_INFO'.
