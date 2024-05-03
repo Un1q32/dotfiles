@@ -662,6 +662,10 @@ get_pkgs() {
     # The output from this is then piped to 'wc -l' to count each
     # line, giving us the total package count of whatever package
     # managers are installed.
+
+    # None of this works if 'wc' isn't installed.
+    has wc || return
+
     case $os in
         (Linux*)
             # Commands which print packages one per line.
@@ -828,13 +832,18 @@ get_memory() {
         # Used memory is calculated using the following "formula":
         # (app + wired + occupied) * pagesize / 1024 / 1024
         (Darwin*)
-            hw_pagesize="$(sysctl -n hw.pagesize)"
-            mem_full=$(($(sysctl -n hw.memsize) / 1024 / 1024))
-            pages=$(sysctl -n vm.page_pageable_internal_count 2>/dev/null)
-            purge=$(sysctl -n vm.page_purgeable_count 2>/dev/null)
-            [ -n "$pages" ] && [ -n "$purge" ] && pages_used=$((pages - purge))
+            # Some older jailbroken iOS devices don't have 'vm_stat'.
+            has vm_stat || return
 
-            # Parse the 'vmstat' file splitting on ':' and '.'.
+            # Older kernels don't have 'vm.page_pageable_internal_count'.
+            p=$(sysctl -n vm.page_pageable_internal_count 2>/dev/null)
+            [ -z "$p" ] && return
+
+            mem_full=$(($(sysctl -n hw.memsize) / 1024 / 1024))
+            hw_pagesize="$(sysctl -n hw.pagesize)"
+            pages_used=$((p - $(sysctl -n vm.page_purgeable_count)))
+
+            # Parse the 'vm_stat' file splitting on ':' and '.'.
             # The format of the file is 'key:   000.' and an additional
             # split is used on '.' to filter it out.
             while IFS=:. read -r key val; do
@@ -1045,7 +1054,7 @@ get_memory() {
         ;;
     esac
 
-    log memory "${mem_used:-?}M / ${mem_full:-?}M" >&6
+    [ -n "$mem_used" ] && [ -n "$mem_full" ] && log memory "${mem_used}M / ${mem_full}M" >&6
 }
 
 get_disk() {
