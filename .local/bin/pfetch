@@ -1065,6 +1065,13 @@ get_disk() {
     df_version=$(df --version 2>&1)
 
     case $df_version in
+        # The 'df' command from GNU coreutils works with the generic
+        # flags at the bottom of the case statement in most scenarios,
+        # but on Cygwin/MSYS2 the 'source' entry can have spaces if the
+        # Windows path to the Cygwin/MSYS2 installation contains spaces,
+        # breaking the parsing of the 'df' output.
+        # Using the --output flag with a layout that doesn't include the
+        # source path is a workaround for this issue.
         *GNU*)
             set -- -h --output=target,size,used,avail,pcent
         ;;
@@ -1087,11 +1094,11 @@ get_disk() {
         # The 'df' command is from Haiku and is wildly
         # different and provides no workable output,
         # end here.
-        *Tracker*) # Haiku
+        *Tracker*)
             return
         ;;
 
-        # From testing it is saffe to assume that
+        # From testing it is safe to assume that
         # any other 'df' version provides these flags.
         *)
             set -- -P -h
