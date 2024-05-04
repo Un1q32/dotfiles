@@ -168,7 +168,9 @@ wmic_read() {
         while IFS= read -r line; do
             if [ -n "$line" ]; then
                 # skip if the line starts with whitespace
-                printf '%s' "$line" | grep -q '^[[:space:]]' && continue
+                case $line in
+                    [[:space:]]*) continue ;;
+                esac
                 # remove trailing whitespace
                 printf '%s\n' "${line%"${line##*[![:space:]]}"}"
             fi
@@ -1063,6 +1065,10 @@ get_disk() {
     df_version=$(df --version 2>&1)
 
     case $df_version in
+        *GNU*)
+            set -- -h --output=target,size,used,avail,pcent
+        ;;
+
         # The 'df' command is from AIX.
         *IMitv*)
             set -- -P -g
@@ -1108,27 +1114,22 @@ get_disk() {
     # The next lines are then split to grab the relevant
     # information and thankfully the output remains the
     # same between all but one 'df' implementation.
-    df "$@" "$PF_DISKPATH" | while read -r name full used _ perc _; do
-        [ "$header" ] || { header=1; continue; }
+    {
+        read -r _ # discard the first line
+        read -r name full used _ perc _
 
         case $df_version in
             # The 'df' command is from IRIX.
             *befhikm*)
-                used=$((used/1024/1024))G
-                full=$((full/1024/1024))G
+                used=$((used / 1024 / 1024))G
+                full=$((full / 1024 / 1024))G
             ;;
         esac
-        # probably a better way to do this, but a simple fixs
-        case $os in
-            CYGWIN*|MSYS*|MINGW*|Windows_NT)
-                windisk=$(df -h | tail -n +2 | awk 'NR==1{print $4" / "$3,"("$6")"}')
-                log disk "$windisk" >&6
-            ;;
-            *)
-                log disk "$used / $full ($perc)" >&6
-            ;;
-        esac
-    done
+    } <<-EOF
+        $(df "$@" "$PF_DISKPATH")
+	EOF
+
+    log disk "$used / $full ($perc)" >&6
 }
 
 get_wm() {
