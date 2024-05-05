@@ -543,12 +543,12 @@ get_uptime() {
     # math.
     case $os in
         (Linux*|Minix*|GNU*|SerenityOS*|CYGWIN*|MSYS*|MINGW*|Windows_NT|NetBSD*)
-            if ! [ -r /proc/uptime ]; then
+            if [ -r /proc/uptime ]; then
+                IFS=. read -r s _ < /proc/uptime
+            else
                 boot=$(date -d"$(uptime -s)" +%s)
                 now=$(date +%s)
                 s=$((now - boot))
-            else
-                IFS=. read -r s _ < /proc/uptime
             fi
         ;;
 
@@ -2190,7 +2190,7 @@ get_ascii() {
 main() {
     case $* in
         -v|--version)
-            printf '%s\n' "${0##*/} 1.0.1"
+            printf '%s 1.0.1\n' "${0##*/}"
             return 0
         ;;
 
