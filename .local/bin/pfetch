@@ -186,7 +186,8 @@ get_title() {
     user=${USER:-$(id -un)}
 
     # Hostname is retrieved by first checking '$HOSTNAME' with a fallback
-    # to the 'hostname' command, then to the '/etc/hostname' file
+    # to the 'hostname' command, then to the '/etc/hostname' file, and finally
+    # to 'unknown'.
     if [ -z "$hostname" ]; then
         if [ -n "$HOSTNAME" ]; then
             hostname="$HOSTNAME"
@@ -1286,15 +1287,17 @@ get_term() {
 get_resolution() {
     case $os in
         Linux*|GNU*|*BSD*)
-            if has xdpyinfo; then
-                resolution=$(xdpyinfo | grep 'dimensions')
-                resolution="${resolution#*dimensions:}"
-                resolution="${resolution% pixels*}"
-            elif has xrandr; then
-                # shellcheck disable=2063
-                resolution="$(xrandr | grep '*')"
-                resolution="${resolution#* }"
-                resolution="${resolution% *}"
+            if [ -n "$DISPLAY" ]; then
+                if has xdpyinfo; then
+                    resolution=$(xdpyinfo | grep 'dimensions')
+                    resolution="${resolution#*dimensions:}"
+                    resolution="${resolution% pixels*}"
+                elif has xrandr; then
+                    # shellcheck disable=2063
+                    resolution="$(xrandr | grep '*')"
+                    resolution="${resolution#* }"
+                    resolution="${resolution% *}"
+                fi
             fi
         ;;
         Darwin*)
