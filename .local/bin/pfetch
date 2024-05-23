@@ -1322,7 +1322,22 @@ get_resolution() {
             fi
         ;;
         Darwin*)
-            has system_profiler && resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2 "x" $4}')
+            if has system_profiler; then
+                while IFS= read -r line; do
+                    case $line in
+                        *Resolution*)
+                            {
+                                IFS=' ' read -r _ width _ height _
+                                resolution="${width}x${height}"
+                            } <<-EOF
+								$line
+							EOF
+                        ;;
+                    esac
+                done <<-EOF
+					$(system_profiler SPDisplaysDataType)
+				EOF
+            fi
         ;;
         CYGWIN*|MSYS*|MINGW*|Windows_NT)
             resolution="$(wmic_read path Win32_VideoController get CurrentHorizontalResolution)x$(wmic_read path Win32_VideoController get CurrentVerticalResolution)"
