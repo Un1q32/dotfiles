@@ -623,7 +623,7 @@ get_uptime() {
     case "$h" in ([!0]*) uptime="${uptime}${h}h "; esac
     case "$m" in ([!0]*) uptime="${uptime}${m}m "; esac
 
-    [ -n "$uptime" ] && log uptime "$uptime" >&6
+    log uptime "${uptime:-0m}" >&6
 }
 
 nix_pkg_count() {
