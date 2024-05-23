@@ -1074,7 +1074,7 @@ get_disk() {
         # Using the --output flag with a layout that doesn't include the
         # source path is a workaround for this issue.
         *GNU*)
-            set -- -h --output=target,size,used,avail,pcent
+            set -- -h --output=fstype,size,used,avail,pcent
         ;;
 
         # The 'df' command is from AIX.
@@ -1084,6 +1084,7 @@ get_disk() {
 
         # The 'df' command is from IRIX.
         *befhikm*)
+            irix_df=1
             set -- -P -k
         ;;
 
@@ -1126,13 +1127,10 @@ get_disk() {
         read -r _ # discard the first line
         read -r name full used _ perc _
 
-        case $df_version in
-            # The 'df' command is from IRIX.
-            *befhikm*)
-                used=$((used / 1024 / 1024))G
-                full=$((full / 1024 / 1024))G
-            ;;
-        esac
+        if [ -n "$irix_df" ]; then
+            used=$((used / 1024 / 1024))G
+            full=$((full / 1024 / 1024))G
+        fi
     } <<-EOF
         $(df "$@" "$PF_DISKPATH")
 	EOF
