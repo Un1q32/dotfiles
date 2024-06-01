@@ -1370,6 +1370,22 @@ get_palette() {
         " " " " " >&6
 }
 
+strip_color_code_stuff() {
+    # This function is used to strip '\033[3Xm' color codes from the ascii art
+    # so they don't affect the width variable.
+    if has awk; then
+        # prefer awk, as toybox sed is totally broken
+        awk '{gsub("\\[3.m","");print}'
+    elif has sed; then
+        sed 's/\[3.m//g'
+    else
+        # Just print the input if no sed or awk
+        while IFS= read -r line; do
+            printf '%s\n' "$line"
+        done
+    fi
+}
+
 get_ascii() {
     # This is a simple function to read the contents of
     # an ascii file from 'stdin'. It allows for the use
@@ -2195,8 +2211,7 @@ get_ascii() {
     # printing of the information through user configuration.
     #
     # Iterate over each line of the ascii art to retrieve the above
-    # information. The 'awk' is used to strip '\033[3Xm' color codes from
-    # the ascii art so they don't affect the width variable.
+    # information.
     while read -r line; do
         ascii_height=$((${ascii_height:-0} + 1))
 
@@ -2209,12 +2224,8 @@ get_ascii() {
     # output without the use of a pipe ('|').
     # This ensures that any variables defined in the while loop
     # are still accessible in the script.
-    #
-    # The 'awk' command below used to be a simple 'sed', however
-    # some versions of Android shipped with a totally broken 'sed'
-    # command from 'toybox' and so we're forced to avoid 'sed'.
     done <<-EOF
-		$(printf %s "$ascii" | awk '{gsub("\\[3.m","");print}')
+		$(printf %s "$ascii" | strip_color_code_stuff)
 	EOF
 
     # Add a gap between the ascii art and the information.
