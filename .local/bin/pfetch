@@ -626,6 +626,15 @@ get_uptime() {
     log uptime "${uptime:-0m}" >&6
 }
 
+apk_pkg_count() {
+    if [ -f /lib/apk/db/installed ] && has grep; then
+        # Fast path
+        grep '^$' /lib/apk/db/installed
+    else
+        apk info
+    fi
+}
+
 nix_pkg_count() {
     nix-store -q --requisites /run/current-system/sw
     nix-store -q --requisites ~/.nix-profile
@@ -700,7 +709,7 @@ get_pkgs() {
             has dpkg       && count_single_pkg dpkg 0 dpkg-query -f '.\n' -W
             has rpm        && count_single_pkg rpm 0 rpm -qa
             has xbps-query && count_single_pkg xbps 0 xbps-query -l
-            has apk        && count_single_pkg apk 0 apk info
+            has apk        && count_single_pkg apk 0 apk_pkg_count
             has guix       && count_single_pkg guix 0 guix package --list-installed
             has opkg       && count_single_pkg opkg 0 opkg list-installed
             has radula     && count_single_pkg radula 0 radula -ch
@@ -1083,6 +1092,9 @@ get_memory() {
 }
 
 get_disk() {
+    # Fail if 'df' isn't installed.
+    has df || return
+
     # Store the version of the 'df' command as the available
     # flags, options and implementation differs between operating
     # systems and we need to handle these edge-cases.
@@ -1139,6 +1151,9 @@ get_disk() {
         esac
     fi
 
+    # Fail if 'df' fails to run.
+    df "$@" "$PF_DISKPATH" >/dev/null 2>&1 || return
+
     # Read the output of 'df' line by line. The first line
     # contains header information for the "table" so it is
     # skipped.
@@ -1148,7 +1163,7 @@ get_disk() {
     # same between all but one 'df' implementation.
     {
         read -r _ # discard the first line
-        read -r name full used _ perc _
+        read -r _ full used _ perc _
 
         if [ -n "$irix_df" ]; then
             used=$((used / 1024 / 1024))G
@@ -1374,7 +1389,7 @@ strip_color_code_stuff() {
     # This function is used to strip '\033[3Xm' color codes from the ascii art
     # so they don't affect the width variable.
     if has awk; then
-        # prefer awk, as toybox sed is totally broken
+        # prefer awk, as some versions of Android shipped with a broken 'sed' command
         awk '{gsub("\\[3.m","");print}'
     elif has sed; then
         sed 's/\[3.m//g'
