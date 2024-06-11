@@ -686,6 +686,11 @@ count_single_pkg() {
     else
         pkgs="$pkgs, $count ($pkgmgr)"
     fi
+    if [ -z "$tiny_pkgs" ]; then
+        tiny_pkgs="$pkgmgr"
+    else
+        tiny_pkgs="$tiny_pkgs, $pkgmgr"
+    fi
 }
 
 get_pkgs() {
@@ -699,6 +704,8 @@ get_pkgs() {
 
     # None of this works if 'wc' isn't installed.
     has wc || return
+
+    total_pkgs=0
 
     case $os in
         (Linux*)
@@ -782,7 +789,7 @@ get_pkgs() {
         ;;
 
         (NetBSD*)
-            count_single_pkg pkgsrc 0 pkg_info
+            count_single_pkg pkgsrc 0 /usr/sbin/pkg_info
         ;;
 
         (Haiku)
@@ -811,15 +818,15 @@ get_pkgs() {
     has cargo      && count_single_pkg cargo 0 cargo_pkg_count
     has pipx       && count_single_pkg pipx 0 pipx list
 
-    case $total_pkgs in
-        (1?*|[2-9]*)
-            if [ "$PF_PACKAGE_MANAGERS" = "on" ]; then
-                log pkgs "$pkgs" >&6
-            else
-                log pkgs "$total_pkgs" >&6
-            fi
-        ;;
-    esac
+    if [ $total_pkgs -gt 0 ]; then
+        if [ "$PF_PACKAGE_MANAGERS" = "on" ]; then
+            log pkgs "$pkgs" >&6
+        elif [ "$PF_PACKAGE_MANAGERS" = "tiny" ]; then
+            log pkgs "$total_pkgs ($tiny_pkgs)" >&6
+        else
+            log pkgs "$total_pkgs" >&6
+        fi
+    fi
 }
 
 get_memory() {
@@ -1340,7 +1347,7 @@ get_resolution() {
             if has system_profiler; then
                 while IFS= read -r line; do
                     case $line in
-                        *Resolution*)
+                        *Resolution:*)
                             {
                                 IFS=' ' read -r _ width _ height _
                                 resolution="${width}x${height}"
