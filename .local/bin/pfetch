@@ -177,7 +177,7 @@ wmic_read() {
             fi
         done
     } <<-EOF
-		$(wmic "$@")
+		$(wmic.exe "$@")
 	EOF
 }
 
@@ -303,14 +303,8 @@ get_os() {
                 ;;
             esac
 
-            # Check to see if Linux is running in Windows under
-            # WSL1 (Windows subsystem for Linux [version 1]) and
-            # append a string accordingly.
-            #
-            # If the kernel version string ends in "-Microsoft",
-            # we're very likely running under Windows in WSL1.
-            if [ -n "$WSLENV" ]; then
-                distro="${distro}${WSLENV+ on Windows [WSL2]}"
+            # If the distribution is still unknown, use the os name.
+            [ -n "$distro" ] || distro="$os"
 
             # Check to see if Linux is running in Windows under
             # WSL2 (Windows subsystem for Linux [version 2]) and
@@ -319,6 +313,20 @@ get_os() {
             # This checks to see if '$WSLENV' is defined. This
             # appends the Windows string even if '$WSLENV' is
             # empty. We only need to check that is has been _exported_.
+            if [ -n "$WSLENV" ]; then
+                distro="${distro}${WSLENV+ on Windows [WSL2]}"
+
+            # If the kernel version string ends in "-WSL2",
+            # we're very likely running under Windows in WSL2.
+            elif [ -z "${kernel%%*-WSL2}" ]; then
+                distro="$distro on Windows [WSL2]"
+
+            # Check to see if Linux is running in Windows under
+            # WSL1 (Windows subsystem for Linux [version 1]) and
+            # append a string accordingly.
+            #
+            # If the kernel version string ends in "-Microsoft",
+            # we're very likely running under Windows in WSL1.
             elif [ -z "${kernel%%*-Microsoft}" ]; then
                 distro="$distro on Windows [WSL1]"
             fi
@@ -472,7 +480,7 @@ get_host() {
             host="$name $version $model"
         ;;
 
-        (Darwin* | FreeBSD* | DragonFly*)
+        (Darwin*|FreeBSD*|DragonFly*)
             case $distro in
                 iOS*) host=$(uname -m)           ;;
                 *)    host=$(sysctl -n hw.model) ;;
@@ -488,7 +496,7 @@ get_host() {
             host=$(sysctl -n hw.version)
         ;;
 
-        (*BSD* | Minix)
+        (*BSD*|Minix)
             host=$(sysctl -n hw.vendor hw.product)
         ;;
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
@@ -745,7 +753,7 @@ get_pkgs() {
                 count_single_pkg scoop 1 printf '%s\n' "$scoopapps"/*
             }
             has winget     && count_single_pkg winget 0 winget list
-            has chocolatey && count_single_pkg chocolatey 0 choco list --local-only
+            has choco      && count_single_pkg chocolatey 2 choco list
             has pacman-key && count_single_pkg pacman 0 pacman -Qq
         ;;
 
