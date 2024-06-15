@@ -48,14 +48,9 @@ esc_p() {
 }
 
 # This is just a simple wrapper around 'command -v' to avoid
-# spamming '>/dev/null' throughout this function. This also guards
-# against aliases and functions.
+# spamming '>/dev/null' throughout the script.
 has() {
-    _cmd=$(command -v "$1") 2>/dev/null || return 1
-    # busybox-w32's shell doesn't return a full path for builtin applets,
-    # causing a false negative. This is a workaround for that.
-    [ "$os" = "Windows_NT" ] && return 0
-    [ -x "$_cmd" ] || return 1
+    command -v "$1" >/dev/null 2>&1
 }
 
 log() {
