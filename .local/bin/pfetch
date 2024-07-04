@@ -484,8 +484,7 @@ get_host() {
         ;;
 
         (NetBSD*)
-            host=$(/sbin/sysctl -n machdep.dmi.system-vendor \
-                                   machdep.dmi.system-product)
+            host=$(/sbin/sysctl -n hw.model)
         ;;
 
         (OpenBSD*)
@@ -661,7 +660,7 @@ serenity_pkg_count() {
     done < /usr/Ports/packages.db
 }
 
-count_single_pkg() {
+count_pkg() {
     # This function is used to count the number of packages installed
     # from each individual package manager.
     # The first arguement is the name of the package manager. The second
@@ -714,32 +713,32 @@ get_pkgs() {
     case $os in
         (Linux*)
             # Commands which print packages one per line.
-            has bonsai     && count_single_pkg bonsai 0 bonsai list
-            has crux       && count_single_pkg pkginfo 0 pkginfo -i
-            has pacman-key && count_single_pkg pacman 0 pacman -Qq
-            has dpkg       && count_single_pkg dpkg 0 dpkg-query -f '.\n' -W
-            has rpm        && count_single_pkg rpm 0 rpm -qa
-            has xbps-query && count_single_pkg xbps 0 xbps-query -l
-            has apk        && count_single_pkg apk 0 apk_pkg_count
-            has guix       && count_single_pkg guix 0 guix package --list-installed
-            has opkg       && count_single_pkg opkg 0 opkg list-installed
-            has rad        && count_single_pkg rad 0 rad -cl
-            has flatpak    && count_single_pkg flatpak 0 flatpak list
-            has snap       && count_single_pkg snap 0 snap list
-            has urpmq      && count_single_pkg urpmq 0 urpmq --list-media active
-            has birb       && count_single_pkg birb 0 birb --list-installed
+            has bonsai     && count_pkg bonsai 0 bonsai list
+            has crux       && count_pkg pkginfo 0 pkginfo -i
+            has pacman-key && count_pkg pacman 0 pacman -Qq
+            has dpkg       && count_pkg dpkg 0 dpkg-query -f '.\n' -W
+            has rpm        && count_pkg rpm 0 rpm -qa
+            has xbps-query && count_pkg xbps 0 xbps-query -l
+            has apk        && count_pkg apk 0 apk_pkg_count
+            has guix       && count_pkg guix 0 guix package --list-installed
+            has opkg       && count_pkg opkg 0 opkg list-installed
+            has rad        && count_pkg rad 0 rad -cl
+            has flatpak    && count_pkg flatpak 0 flatpak list
+            has snap       && count_pkg snap 0 snap list
+            has urpmq      && count_pkg urpmq 0 urpmq --list-media active
+            has birb       && count_pkg birb 0 birb --list-installed
 
             # Directories containing packages.
-            has kiss       && count_single_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
-            has cpt-list   && count_single_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
-            has brew       && count_single_pkg homebrew 0 \
+            has kiss       && count_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
+            has cpt-list   && count_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
+            has brew       && count_pkg homebrew 0 \
                 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
-            has emerge     && count_single_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
-            has pkgtool    && count_single_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
-            has eopkg      && count_single_pkg eopkg 0 printf '%s\n' /var/lib/eopkg/package/*
+            has emerge     && count_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
+            has pkgtool    && count_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
+            has eopkg      && count_pkg eopkg 0 printf '%s\n' /var/lib/eopkg/package/*
 
             # 'nix' requires two commands.
-            has nix-store  && count_single_pkg nix 0 nix_pkg_count
+            has nix-store  && count_pkg nix 0 nix_pkg_count
         ;;
 
         (CYGWIN*|MSYS*|MINGW*|Windows_NT)
@@ -747,20 +746,20 @@ get_pkgs() {
             has scoop && {
                 scoopapps=$(command -v scoop)
                 scoopapps="${scoopapps%/*}/../apps"
-                count_single_pkg scoop 1 printf '%s\n' "$scoopapps"/*
+                count_pkg scoop 1 printf '%s\n' "$scoopapps"/*
             }
-            has winget     && count_single_pkg winget 0 winget list
-            has choco      && count_single_pkg chocolatey 2 choco list
-            has pacman-key && count_single_pkg pacman 0 pacman -Qq
+            has winget     && count_pkg winget 0 winget list
+            has choco      && count_pkg chocolatey 2 choco list
+            has pacman-key && count_pkg pacman 0 pacman -Qq
         ;;
 
         (Darwin*)
             # Commands which print packages one per line.
-            has pkgin      && count_single_pkg pkgin 0 pkgin list
-            has dpkg       && count_single_pkg dpkg 0 dpkg-query -f '.\n' -W
+            has pkgin      && count_pkg pkgin 0 pkgin list
+            has dpkg       && count_pkg dpkg 0 dpkg-query -f '.\n' -W
 
             # Directories containing packages.
-            has brew       && count_single_pkg homebrew 0 \
+            has brew       && count_pkg homebrew 0 \
                 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
 
             # 'port' prints a single line of output to 'stdout'
@@ -780,49 +779,49 @@ get_pkgs() {
                     ;;
 
                     (*)
-                        count_single_pkg macports 0 printf '%s' "$pkg_list"
+                        count_pkg macports 0 printf '%s' "$pkg_list"
                     ;;
                 esac
             }
         ;;
 
         (FreeBSD*|DragonFly*)
-            count_single_pkg FreeBSD 0 pkg info
+            count_pkg FreeBSD 0 pkg info
         ;;
 
         (OpenBSD*)
-            count_single_pkg OpenBSD 0 printf '%s\n' /var/db/pkg/*/
+            count_pkg OpenBSD 0 printf '%s\n' /var/db/pkg/*/
         ;;
 
         (NetBSD*)
-            count_single_pkg pkgsrc 0 /usr/sbin/pkg_info
+            count_pkg pkgsrc 0 /usr/sbin/pkg_info
         ;;
 
         (Haiku)
-            count_single_pkg Haiku 0 printf '%s\n' /boot/system/package-links/*
+            count_pkg Haiku 0 printf '%s\n' /boot/system/package-links/*
         ;;
 
         (Minix)
-            count_single_pkg Minix 0 printf '%s\n' /usr/pkg/var/db/pkg/*/
+            count_pkg Minix 0 printf '%s\n' /usr/pkg/var/db/pkg/*/
         ;;
 
         (SunOS)
-            has pkginfo && count_single_pkg pkginfo 0 pkginfo -i
-            has pkg     && count_single_pkg pkg 0 pkg list
+            has pkginfo && count_pkg pkginfo 0 pkginfo -i
+            has pkg     && count_pkg pkg 0 pkg list
         ;;
 
         (IRIX)
-            count_single_pkg IRIX 3 versions -b
+            count_pkg IRIX 3 versions -b
         ;;
 
         (SerenityOS)
-            count_single_pkg SerenityOS 0 serenity_pkg_count
+            count_pkg SerenityOS 0 serenity_pkg_count
         ;;
     esac
 
     # package managers that are on many different systems
-    has cargo      && count_single_pkg cargo 0 cargo_pkg_count
-    has pipx       && count_single_pkg pipx 0 pipx list
+    has cargo      && count_pkg cargo 0 cargo_pkg_count
+    has pipx       && count_pkg pipx 0 pipx list
 
     if [ $total_pkgs -gt 0 ]; then
         if [ "$PF_PACKAGE_MANAGERS" = "on" ]; then
