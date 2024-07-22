@@ -5,6 +5,8 @@ export SUDO_PROMPT='Password:'
 export LESSHISTFILE=-
 export BAT_THEME=base16
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # export MANPAGER='nvim +Man!'
 
 export PATH="\
