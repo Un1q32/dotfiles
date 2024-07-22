@@ -4,6 +4,7 @@ export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 export SUDO_PROMPT='Password:'
 export LESSHISTFILE=-
 export BAT_THEME=base16
+export GNUPGHOME="$DATA/gnupg"
 # export MANPAGER='nvim +Man!'
 
 export PATH="\
