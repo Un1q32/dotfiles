@@ -1,10 +1,10 @@
 # vim:filetype=sh
-export PF_SOURCE="$CONF/pfetch.conf"
+export PF_SOURCE="$XDG_CONFIG_HOME/pfetch.conf"
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 export SUDO_PROMPT='Password:'
 export LESSHISTFILE=-
 export BAT_THEME=base16
-export GNUPGHOME="$DATA/gnupg"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 # export MANPAGER='nvim +Man!'
 
 export PATH="\
