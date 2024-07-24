@@ -485,8 +485,9 @@ get_host() {
         ;;
 
         (Darwin*|FreeBSD*|DragonFly*)
+            # '$arch' is the cached output from 'uname -m'.
             case $distro in
-                iOS*) host=$(uname -m)           ;;
+                iOS*) host=$arch                 ;;
                 *)    host=$(sysctl -n hw.model) ;;
             esac
         ;;
@@ -2334,6 +2335,12 @@ main() {
     # it but I'm yet to see this irk anyone.
     esc_p DECAWM l >&6
     trap 'esc_p DECAWM h >&6' EXIT
+
+    # Error if 'uname' is not available.
+    if ! has uname; then
+        printf 'error: uname is not available.\n' >&6
+        return 1
+    fi
 
     # Store the output of 'uname' to avoid calling it multiple times
     # throughout the script. 'read <<EOF' is the simplest way of reading
