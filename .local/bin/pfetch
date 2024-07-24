@@ -161,7 +161,7 @@ log() {
 }
 
 wmic_read() {
-    # This function is used to remove useless garbage from wmic output.
+    # This function is used to remove garbage from the output of 'wmic'.
     {
         read -r line # discard the first line
         while IFS= read -r line; do
@@ -264,7 +264,7 @@ get_os() {
             # Android detection works by checking for the existence of
             # the following two directories. I don't think there's a simpler
             # method than this.
-            elif [ -d /system/app ] && [ -d /system/priv-app ]; then
+            elif [ -d /system/app ] && [ -d /system/priv-app ] && has getprop; then
                 distro="Android $(getprop ro.build.version.release)"
 
             elif [ -f /etc/os-release ]; then
@@ -2335,12 +2335,6 @@ main() {
     # it but I'm yet to see this irk anyone.
     esc_p DECAWM l >&6
     trap 'esc_p DECAWM h >&6' EXIT
-
-    # Error if 'uname' is not available.
-    if ! has uname; then
-        printf 'error: uname is not available.\n' >&6
-        return 1
-    fi
 
     # Store the output of 'uname' to avoid calling it multiple times
     # throughout the script. 'read <<EOF' is the simplest way of reading
