@@ -1409,13 +1409,13 @@ get_palette() {
 }
 
 strip_color_code_stuff() {
-    # This function is used to strip '\033[3*m' color codes from the ascii art
+    # This function is used to strip '\033[3Xm' color codes from the ascii art
     # so they don't affect the width variable.
     while IFS= read -r line; do
         while :; do
             case $line in
-                *\[3*m*)
-                    line="${line%%\[3*m*}${line#*\[3*m}"
+                *\[3?m*)
+                    line="${line%%\[3?m*}${line#*\[3?m}"
                 ;;
                 *)
                     break
