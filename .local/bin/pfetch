@@ -474,11 +474,11 @@ get_host() {
             # Despite what these files are called, version doesn't
             # always contain the version nor does name always contain
             # the name.
-            [ -f /sys/devices/virtual/dmi/id/product_name ] && \
+            [ -f /sys/devices/virtual/dmi/id/product_name ] &&
                 read -r name < /sys/devices/virtual/dmi/id/product_name
-            [ -f /sys/devices/virtual/dmi/id/product_version ] && \
+            [ -f /sys/devices/virtual/dmi/id/product_version ] &&
                 read -r version < /sys/devices/virtual/dmi/id/product_version
-            [ -f /sys/firmware/devicetree/base/model ] && \
+            [ -f /sys/firmware/devicetree/base/model ] &&
                 read -r model < /sys/firmware/devicetree/base/model
 
             host="$name $version $model"
@@ -887,7 +887,7 @@ get_memory() {
         # Used memory is calculated using the following "formula":
         # (app + wired + occupied) * pagesize / 1024 / 1024
         (Darwin*)
-            # Some older jailbroken iOS devices don't have 'vm_stat'.
+            # Some older iOS devices don't have 'vm_stat'.
             has vm_stat || return
 
             # Older kernels don't have 'vm.page_pageable_internal_count'.
@@ -1109,8 +1109,18 @@ get_memory() {
         ;;
     esac
 
-    [ -n "$mem_used" ] && [ -n "$mem_full" ] && \
+    if [ -n "$mem_used" ] && [ -n "$mem_full" ]; then
+        if [ -n "$ZSH_VERSION" ]; then
+            # Zsh has decimal output here, I'm not sure why.
+            # This removes the decimal point and everything after it.
+            case $mem_used in
+                (*.*)
+                    mem_used=${mem_used%.*}
+                ;;
+            esac
+        fi
         log memory "${mem_used}M / ${mem_full}M" >&6
+    fi
 }
 
 get_disk() {
@@ -1407,24 +1417,6 @@ get_palette() {
     printf '\n' >&6
     log "$palette
         " " " " " >&6
-}
-
-strip_color_code_stuff() {
-    # This function is used to strip '\033[3Xm' color codes from the ascii art
-    # so they don't affect the width variable.
-    while IFS= read -r line; do
-        while :; do
-            case $line in
-                *\[3?m*)
-                    line="${line%%\[3?m*}${line#*\[3?m}"
-                ;;
-                *)
-                    break
-                ;;
-            esac
-        done
-        printf '%s\n' "$line"
-    done
 }
 
 get_ascii() {
@@ -2253,7 +2245,20 @@ get_ascii() {
     #
     # Iterate over each line of the ascii art to retrieve the above
     # information.
-    while read -r line; do
+    while IFS= read -r line; do
+        # Strip '\033[3Xm' color codes from the ascii art
+        # so they don't affect the width variable.
+        while true; do
+            case $line in
+                *\[3?m*)
+                    line="${line%%\[3?m*}${line#*\[3?m}"
+                ;;
+                *)
+                    break
+                ;;
+            esac
+        done
+
         ascii_height=$((${ascii_height:-0} + 1))
 
         # This was a ternary operation but they aren't supported in
@@ -2266,7 +2271,7 @@ get_ascii() {
     # This ensures that any variables defined in the while loop
     # are still accessible in the script.
     done <<-EOF
-		$(printf %s "$ascii" | strip_color_code_stuff)
+		$(printf %s "$ascii")
 	EOF
 
     # Add a gap between the ascii art and the information.
@@ -2349,7 +2354,7 @@ main() {
 
     # Allow the user to specify the order and inclusion of information
     # functions through the 'PF_INFO' environment variable.
-    [ "$PF_INFO" = "all" ] && \
+    [ "$PF_INFO" = "all" ] &&
         PF_INFO="ascii title os host kernel uptime pkgs memory disk wm de shell editor term resolution palette"
     # shellcheck disable=2086
     {
