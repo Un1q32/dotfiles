@@ -16,9 +16,9 @@ export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 [ -f "$XDG_CONFIG_HOME/env" ] && . "$XDG_CONFIG_HOME/env"
 [ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
 
-export HISTFILE="$XDG_CONFIG_HOME/history"
-export HISTSIZE=10000
-export SAVEHIST=10000
+HISTFILE="$XDG_CONFIG_HOME/history"
+HISTSIZE=10000
+SAVEHIST=10000
 setopt appendhistory
 
 if [ "$(uname -s)" = "Darwin" ]; then
