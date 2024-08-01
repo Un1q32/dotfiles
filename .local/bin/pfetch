@@ -655,7 +655,7 @@ nix_pkg_count() {
 cargo_pkg_count() {
     while IFS= read -r line; do
         case $line in
-            ' '*) continue ;;
+            ' '*|'') continue ;;
         esac
         printf '%s\n' "$line"
     done <<-EOF
@@ -740,7 +740,7 @@ get_pkgs() {
             # Directories containing packages.
             has kiss       && count_pkg kiss 0 printf '%s\n' /var/db/kiss/installed/*/
             has cpt-list   && count_pkg cpt-list 0 printf '%s\n' /var/db/cpt/installed/*/
-            has brew       && count_pkg homebrew 0 \
+            has brew       && count_pkg brew 0 \
                 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
             has emerge     && count_pkg portage 0 printf '%s\n' /var/db/pkg/*/*/
             has pkgtool    && count_pkg pkgtool 0 printf '%s\n' /var/log/packages/*
@@ -768,7 +768,7 @@ get_pkgs() {
             has dpkg       && count_pkg dpkg 0 dpkg-query -f '.\n' -W
 
             # Directories containing packages.
-            has brew       && count_pkg homebrew 0 \
+            has brew       && count_pkg brew 0 \
                 printf '%s\n' "$(brew --cellar)/"* "$(brew --caskroom)/"*
 
             # 'port' prints a single line of output to 'stdout'
@@ -2275,7 +2275,7 @@ get_ascii() {
 	EOF
 
     # Add a gap between the ascii art and the information.
-    ascii_width=$((ascii_width + 4))
+    ascii_width=$((ascii_width + 3))
 
     # Print the ascii art and position the cursor back where we
     # started prior to printing it.
@@ -2321,6 +2321,8 @@ main() {
     # extend pfetch's behavior.
     # shellcheck source=/dev/null
     [ -f "$PF_SOURCE" ] && . "$PF_SOURCE"
+
+    [ -n "$NO_COLOR" ] && PF_COLOR=0
 
     # Ensure that the 'TMPDIR' is writable as heredocs use it and
     # fail without the write permission. This was found to be the
