@@ -8,7 +8,7 @@ export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 [ -d "$XDG_CONFIG_HOME" ] || mkdir -p "$XDG_CONFIG_HOME"
 [ -d "$XDG_CACHE_HOME" ] || mkdir -p "$XDG_CACHE_HOME"
 [ -d "$XDG_BIN_HOME" ] || mkdir -p "$XDG_BIN_HOME"
-[ -d "$XDG_DATA_HOME/zsh" ] || mkdir -p "$XDG_DATA_HOME/zsh"
+[ -d "$XDG_DATA_HOME" ] || mkdir -p "$XDG_DATA_HOME"
 [ -f "$XDG_CONFIG_HOME/env" ] && . "$XDG_CONFIG_HOME/env"
 [ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
 
