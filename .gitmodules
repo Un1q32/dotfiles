@@ -1,0 +1,21 @@
+[submodule ".config/zsh/plugins/zsh-syntax-highlighting"]
+	path = .config/zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".config/zsh/plugins/zsh-autosuggestions"]
+	path = .config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule ".config/zsh/plugins/zsh-vi-mode"]
+	path = .config/zsh/plugins/zsh-vi-mode
+	url = https://github.com/OldWorldOrdr/zsh-vi-mode
+[submodule ".local/share/zsh/plugins/zsh-syntax-highlighting"]
+	path = .local/share/zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule ".local/share/zsh/plugins/zsh-autosuggestions"]
+	path = .local/share/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule ".local/share/zsh/plugins/zsh-vi-mode"]
+	path = .local/share/zsh/plugins/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode.git
+[submodule ".local/share/zsh/plugins/fast-syntax-highlighting"]
+	path = .local/share/zsh/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git

@@ -1,0 +1,38 @@
+# vim:filetype=sh
+# shellcheck disable=2046,2086
+# essentials
+alias cls='clear'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias tree='tree -aCI .git --dirsfirst'
+
+# ls
+alias ls='lsd --icon=never --group-directories-first -A'
+# alias ls='ls --color=auto --group-directories-first -A'
+# alias ls='ls -A'
+alias l='ls -lh'
+
+# only sometimes
+# alias lg='lazygit'
+# alias cat='bat --style="header-filename,grid,numbers"'
+# alias objdump='objdump --disassembler-color=color'
+# alias gdb='gdb -q'
+# alias wget='wget2 -c'
+
+# distro specific
+# autoremove() {
+#     pkgs="$(pacman -Qqtd)"
+#     if [ -n "$pkgs" ]; then
+#         sudo pacman -Rs $(pacman -Qqtd)
+#     else
+#         printf "No packages to remove.\n"
+#     fi
+# }
+# autoremove() { sudo zypper rm --clean-deps $(zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | uniq); }
+# alias sudo='gsudo'
+# alias ln='sudo ln'
+# alias convert='magick convert'
+# alias su='sudo ash -l'
+# alias bash='C:/Users/Joey/scoop/shims/bash.exe'

@@ -1,0 +1,9 @@
+[user]
+	email = joey.t.reinhart@gmail.com
+	name = Un1q32
+[init]
+	defaultBranch = master
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
