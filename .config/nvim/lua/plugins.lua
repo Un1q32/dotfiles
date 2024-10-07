@@ -16,7 +16,6 @@ local plugins = {
     'Un1q32/nvim-base16',
     'nvim-treesitter/nvim-treesitter',
     'windwp/nvim-autopairs',
-    'github/copilot.vim',
     'NMAC427/guess-indent.nvim',
 }
 
