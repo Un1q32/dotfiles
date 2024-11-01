@@ -2484,7 +2484,7 @@ get_ascii() {
 main() {
     case $* in
         -v|--version)
-            printf '%s 1.5.0\n' "${0##*/}"
+            printf '%s 1.6.0\n' "${0##*/}"
             return 0
         ;;
 
@@ -2505,6 +2505,12 @@ ${0##*/} -v  show version
             return 0
         ;;
     esac
+
+    # Fail if uname is unavailible.
+    if ! has uname; then
+        printf 'Missing dependency: uname\n'
+        exit 1
+    fi
 
     # Hide 'stdout' and selectively print to it using '>&6'.
     # This gives full control over what it displayed on the screen.
