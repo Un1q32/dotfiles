@@ -1496,7 +1496,7 @@ get_cpus() {
         cpus=$(nproc)
     else
         case $os in
-            (Darwin*|FreeBSD*|DragonFly*)
+            (Darwin*|FreeBSD*|DragonFly*|OpenBSD*)
                 cpus=$(sysctl -n hw.ncpu)
             ;;
 
@@ -2506,7 +2506,7 @@ ${0##*/} -v  show version
         ;;
     esac
 
-    # Fail if uname is unavailible.
+    # Fail if uname is unavailable.
     if ! has uname; then
         printf 'Missing dependency: uname\n'
         exit 1
