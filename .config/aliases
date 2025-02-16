@@ -9,8 +9,8 @@ alias .....='cd ../../../..'
 alias tree='tree -aCI .git --dirsfirst'
 
 # ls
-alias ls='lsd --icon=never --group-directories-first -A -I.DS_Store'
-# alias ls='ls --color=auto --group-directories-first -A -I.DS_Store'
+alias ls='lsd --icon=never --group-directories-first -A -I.DS_Store -I.localized'
+# alias ls='ls --color=auto --group-directories-first -A -I.DS_Store -I.localized'
 # alias ls='ls -A'
 alias l='ls -lh'
 
