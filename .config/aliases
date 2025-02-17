@@ -31,8 +31,5 @@ alias l='ls -lh'
 #     fi
 # }
 # autoremove() { sudo zypper rm --clean-deps $(zypper packages --unneeded | awk -F'|' 'NR==0 || NR==1 || NR==2 || NR==3 || NR==4 {next} {print $3}' | grep -v Name | uniq); }
-# alias sudo='gsudo'
+# alias su='sudo bash'
 # alias ln='sudo ln'
-# alias convert='magick convert'
-# alias su='sudo ash -l'
-# alias bash='C:/Users/Joey/scoop/shims/bash.exe'
