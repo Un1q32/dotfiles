@@ -16,3 +16,4 @@ lsp.lua_ls.setup({
     }
   }
 })
+require('diagflow').setup()
