@@ -5,7 +5,6 @@ require("mason-lspconfig").setup {
   ensure_installed = { "lua_ls", "clangd", "bashls" }
 }
 
-lsp.clangd.setup({})
 lsp.bashls.setup({})
 lsp.lua_ls.setup({
   settings = {
@@ -16,4 +15,3 @@ lsp.lua_ls.setup({
     }
   }
 })
-require('diagflow').setup()

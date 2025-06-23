@@ -42,6 +42,7 @@ vim.diagnostic.config {
     }
   },
   underline = true,
+  virtual_text = true,
 }
 
 vim.cmd.colorscheme('base16-classic-dark')
