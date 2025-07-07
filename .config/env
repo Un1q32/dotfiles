@@ -10,5 +10,5 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # export MANPAGER='nvim +Man!'
 
 export PATH="\
-$HOME/.local/bin:\
-$PATH"
+$HOME/.local/bin\
+${PATH:+:$PATH}"
