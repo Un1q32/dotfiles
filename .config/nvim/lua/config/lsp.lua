@@ -1,12 +1,11 @@
-local lsp = require("lspconfig")
-
 require("mason").setup()
 require("mason-lspconfig").setup {
   ensure_installed = { "lua_ls", "clangd", "bashls" }
 }
 
-lsp.bashls.setup({})
-lsp.lua_ls.setup({
+vim.lsp.enable('bashls')
+vim.lsp.enable('lua_ls')
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       diagnostics = {
