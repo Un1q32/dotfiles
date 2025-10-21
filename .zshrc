@@ -1,4 +1,4 @@
-# shellcheck disable=SC2034,SC1091,SC1090
+# shellcheck disable=2034,1091,1090
 autoload -U compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
