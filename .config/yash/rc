@@ -21,7 +21,7 @@ export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 [ -f "$XDG_CONFIG_HOME/env" ] && . "$XDG_CONFIG_HOME/env"
 [ -f "$XDG_CONFIG_HOME/aliases" ] && . "$XDG_CONFIG_HOME/aliases"
 
-HISTFILE="$XDG_CONFIG_HOME/history"
+HISTFILE="$XDG_CONFIG_HOME/yash_history"
 if command -v hostname >/dev/null; then
     HOSTNAME="$(hostname)"
 else
