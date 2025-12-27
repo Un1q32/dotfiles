@@ -25,6 +25,4 @@ if vim.fn.system('uname -o') ~= 'Android\n' then
   table.insert(plugins, 'williamboman/mason-lspconfig.nvim')
 end
 
-local opts = {}
-
-require('lazy').setup(plugins, opts)
+require('lazy').setup(plugins, {})
