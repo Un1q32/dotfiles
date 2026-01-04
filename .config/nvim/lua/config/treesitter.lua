@@ -1,5 +1,5 @@
 local ts = require'nvim-treesitter'
-local filetypes = { 'bash', 'lua', 'vim', 'regex', 'markdown', 'markdown_inline', 'vimdoc', 'c', 'diff', 'yaml', 'toml', 'make', 'groovy', 'cmake' }
+local filetypes = { 'bash', 'lua', 'vim', 'regex', 'markdown', 'markdown_inline', 'vimdoc', 'c', 'diff', 'yaml', 'toml', 'make', 'groovy', 'cmake', 'gitcommit' }
 
 ts.install(filetypes):wait(9999999)
 vim.api.nvim_create_autocmd('FileType', {
