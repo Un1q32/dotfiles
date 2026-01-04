@@ -3,7 +3,7 @@
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule ".local/share/zsh/plugins/zsh-vi-mode"]
 	path = .local/share/zsh/plugins/zsh-vi-mode
-	url = https://github.com/jeffreytse/zsh-vi-mode.git
+	url = https://github.com/Un1q32/zsh-vi-mode.git
 [submodule ".local/share/zsh/plugins/fast-syntax-highlighting"]
 	path = .local/share/zsh/plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
