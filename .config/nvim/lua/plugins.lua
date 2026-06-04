@@ -15,7 +15,6 @@ local plugins = {
   'numToStr/Comment.nvim',
   'Un1q32/nvim-base16',
   'nvim-treesitter/nvim-treesitter',
-  'windwp/nvim-autopairs',
   'NMAC427/guess-indent.nvim',
 }
 
