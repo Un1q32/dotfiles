@@ -2,3 +2,5 @@
 ic
 # scroll 3 lines at a time
 &3
+# 4 spaces for a tab
+ts4
