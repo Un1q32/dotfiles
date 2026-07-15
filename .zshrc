@@ -32,9 +32,6 @@ if [ "$EUID" = 0 ]; then
 else
     PROMPT=$'%{\e[1;32m%}%n@%M%{\e[1;34m%} %~ $%{\e[0m%} '
 
-    clear
-    pfetch
-
     if [ -d "$XDG_DATA_HOME/zsh/plugins" ]; then
         for plug in "$XDG_DATA_HOME"/zsh/plugins/*/*.plugin.zsh; do
             . "$plug"
