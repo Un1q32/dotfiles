@@ -4,3 +4,5 @@ ic
 &3
 # 4 spaces for a tab
 ts4
+# highlight malloc wrappers
+12hi strdup|safeMalloc|safeCalloc|safeRealloc|safeMemalign|safeStrdup
